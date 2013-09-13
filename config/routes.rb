@@ -53,4 +53,13 @@ Wangstore::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+	
+  root to: 'home#index'
+
+  #首页
+  get 'about',       		to: 'home#about'
+  get 'help',        		to: 'home#help'
+  get 'choose',     		to: 'home#choose'
+  
+	
 end
