@@ -19,5 +19,9 @@ module Wangstore
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+	#让 bootstrap-sass 这个 gem 和 Asset Pipeline 兼容
+	config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
   end
 end
