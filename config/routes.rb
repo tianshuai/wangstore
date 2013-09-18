@@ -57,9 +57,9 @@ Wangstore::Application.routes.draw do
   root to: 'home#index'
 
   #首页
-  get 'about',       		to: 'home#about'
-  get 'help',        		to: 'home#help'
-  get 'choose',     		to: 'home#choose'
+  get 'about',       			to: 'home#about'
+  get 'help',        			to: 'home#help'
+  get 'choose',     			to: 'home#choose'
   
 	
 end
