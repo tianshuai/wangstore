@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+
+
+
+<% provide(:title, '个人主页') %>
+
+<div class="main">
+  <div class="span6">
+	<p>
+	  <b>头像:</b>
+	  <%= user_avatar_tag(@user, 'b') %>
+	</p>
+	<br />
+	<p>
+	  <b>用户名:</b>
+	  <%= @user.name %>
+	</p>
+	<br />
+	<p>
+	  <b>邮箱:</b>
+	  <%= @user.email %>
+	</p>
+  </div>
+</div>

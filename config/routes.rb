@@ -61,5 +61,14 @@ Wangstore::Application.routes.draw do
   get 'help',        			to: 'home#help'
   get 'choose',     			to: 'home#choose'
   
+
+  #用户路由
+  resources :users,			only: [:index, :new, :create, :show] 
+
+  #用户注册登录
+  match 'signup',					to: 'users#new',				via:	:get
+  match 'login',					to: 'users#login',				via:	:get
+  match 'user/edit_info',			to: 'users#edit_info',			via:	:get
+  match 'user/update_info',			to: 'users#update_info',		via:	:get			
 	
 end
