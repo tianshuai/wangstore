@@ -1,20 +1,8 @@
-class HomeController < ApplicationController
-
-  def index
-	@title = 'home'
-  end
-
-  def help
-
-  end
-
-  def about
-
-  end
-
-  def choose
-    require 'open-uri'
-	code = "tui30y100"
+# encoding: utf-8
+require 'open-uri'
+namespace :fh do
+  desc 'fenghui_api'
+  task :fh, [:key, :type] => :environment do |t, args|	code = "tui30y100"
 	key = params[:key] || ''
 	dir = '/opt/fenghui/'
 	#通过漫画模糊搜索查询漫画ＩＤ
@@ -64,7 +52,5 @@ class HomeController < ApplicationController
 		end
 	  end
 	end
-
   end
-
 end
