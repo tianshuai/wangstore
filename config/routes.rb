@@ -63,12 +63,29 @@ Wangstore::Application.routes.draw do
   
 
   #用户路由
-  resources :users,			only: [:index, :new, :create, :show] 
+  resources :users,					only: [:index, :new, :create, :show] 
+  match 'user/edit_info',			to: 'users#edit_info',			via: :get
+  match 'user/update_info',			to: 'users#update_info',		via: :patch
 
-  #用户注册登录
-  match 'signup',					to: 'users#new',				via:	:get
-  match 'login',					to: 'users#login',				via:	:get
-  match 'user/edit_info',			to: 'users#edit_info',			via:	:get
-  match 'user/update_info',			to: 'users#update_info',		via:	:get			
+  #个人资料设置
+  match 'user/edit_pwd',			to: 'users#edit_pwd',			via: :get
+  match 'user/update_pwd',			to: 'users#update_pwd',			via: :patch
+  match 'user/ajax_avatar_form',	to: 'users#ajax_avatar_form',	via: :get
+  post 'user/ajax_validate_only',	to: 'users#ajax_validate_only'
+  get 'user/find_pwd',				to: 'users#find_pwd'
+  get 'user/send_mail',			to: 'users#send_mail'
+  get 'user/go_mail',				to: 'users#go_mail'
+  get 'user/reset_pwd',				to: 'users#reset_pwd'
+  put 'user/update_r_pwd',			to: 'users#update_r_pwd'
+
+  #头像设置
+  match 'user/edit_avatar',			to: 'users#edit_avatar',		via: :get
+
+
+  resources :sessions, 				only: [:new, :create, :destroy]
+
+  match '/signup',					to: 'users#new',				via: :get
+  match '/signin',  				to: 'sessions#new',         	via: :get
+  match '/signout', 				to: 'sessions#destroy',     	via: :delete
 	
 end

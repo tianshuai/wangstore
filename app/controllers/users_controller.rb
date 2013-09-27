@@ -2,10 +2,10 @@
 class UsersController < ApplicationController
 
   #如果已登录，注册或登录页面则跳到首页
-  #before_filter :forbid_login, only: [ :new, :create ]
+  before_action :forbid_login, only: [ :new, :create ]
 
   #需要登录
-  #before_filter :signed_in_user, only: [ :edit, :update, :edit_profile, :edit_info, :edit_pwd, :edit_avatar ]
+  before_action :signed_in_user, only: [ :edit, :update, :edit_profile, :edit_info, :edit_pwd, :edit_avatar ]
 
   # GET /users
   # GET /users.json
@@ -30,14 +30,14 @@ class UsersController < ApplicationController
 
   #创建用户
   def create
-    @user = User.new(user_params)
+    @user = User.new(create_user_params)
 	#记录当前ip
-	#@user.ip = current_ip
+	@user.ip = current_ip
 	#记录最后登录时间
-	#@user.last_time = Time.now.to_i
+	@user.last_time = Time.now.to_i
     if @user.save
       flash[:success] = '注册成功!'
-      #sign_in @user
+      sign_in @user
       redirect_to @user
     else
       render 'new'
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 	@css_edit_info = true
 	@user = current_user
 	#params.delete(params[:user][:email])
-	if @user.update_attributes(params[:user])
+	if @user.update_attributes(update_base_info)
 	  flash[:success] = '更新成功!'
 	  #sign_in @user
 	  redirect_to @user
@@ -135,8 +135,12 @@ class UsersController < ApplicationController
   #私有方法
   private
 
-  def user_params
-    params.require(:user).permit( :name, :email, :desc,	:password, :password_confirmation )
+  def create_user_params
+    params.require(:user).permit( :name, :email, :sex, :desc, :password, :password_confirmation )
+  end
+
+  def update_base_info
+    params.require(:user).permit( :name, :sex )
   end
 
 

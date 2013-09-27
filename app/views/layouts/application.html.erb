@@ -11,6 +11,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<%= yield %>
+	  <div class="main">
+      <!--消息提醒-->
+      <%= render partial: 'shared/flash',locals: { flash: flash }%>
+	  </div>
+		<%= yield %>
+		<% if signed_in? %>
+			已登录-<%=current_user.name%>
+			<%=link_to 'out', signout_path, method: :delete%>
+		<%else%>
+			未登录
+		<%end%>
+
+	<!--返回顶部-->
+	<a href="javascript:void(0);" class="gotop_btn hidden" id="goTopButton">&nbsp;</a>
 </body>
 </html>
+
+  <%= yield :scripts %>
+  <script type="text/javascript">
+    <!--
+    $(function(){
+      //初始化
+      tian.initial();
+	  <%=yield :jquery %>
+	  //返回顶部
+	  tian.go_top();
+  });
+  //-->
+  </script>

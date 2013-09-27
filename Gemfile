@@ -19,6 +19,11 @@ group :assets do
 
 
 end
+
+#分页
+gem 'will_paginate', '3.0.4'
+gem 'bootstrap-will_paginate', '0.0.9'
+
 gem 'bootstrap-sass'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby

@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   before_save { |user| user.email = email.downcase }
 
   #创建用户登录标识(唯一随机数)
+  before_create :create_remember_token
+
+  #创建用户登录标识(唯一随机数)
   #before_create :create_remember_token
 
   #保护字段(在rails4.0中放在controller负责)
@@ -93,6 +96,24 @@ class User < ActiveRecord::Base
 
   ##
   #方法
+
+
+
+  def User.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def User.encrypt(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end
+
+
+private
+
+  #创建用户登录标识
+  def create_remember_token
+    self.remember_token =  User.encrypt(User.new_remember_token)
+  end
 
   
 end
