@@ -1,0 +1,46 @@
+<% provide(:title, "找回密码") %>
+
+<% content_for :jquery do %>
+
+  //validate验证
+ $("#check_mail_form").validate({
+    rules: {
+      'email': {
+          required: true,
+		  email: true,
+			remote: {
+				url: "/user/ajax_validate_only",     //后台处理程序
+				type: "post",               //数据发送方式
+				dataType: "json",           //接受数据格式   
+				data: {                     //要传递的数据
+					val: function() {
+						return $("#email").val();
+					},
+					type: 3
+				}
+			}
+      }
+    },
+    messages: {
+      'email': {
+	  	  required: '请输入你的邮箱!',
+		  email: '请输入正确邮箱格式!',
+		  remote: '邮箱不存在!'
+      }
+    }
+ });
+
+<%end%>
+
+
+
+<div class="row main">
+  <div class="span6 offset3">
+	<%= form_tag(user_send_mail_path, id: 'check_mail_form', method: :get) do |f| %>
+	  <label>填写你要找回密码的邮箱地址:</label>
+      <%= text_field_tag :email %>
+      <%= submit_tag "发送", class: "btn btn-large btn-primary" %>
+    <% end %>
+
+  </div>
+</div>

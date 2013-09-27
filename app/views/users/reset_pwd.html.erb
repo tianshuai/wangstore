@@ -1,0 +1,50 @@
+<% provide(:title, '重置密码') %>
+
+<% content_for :jquery do %>
+  //validate验证
+ $("#check_pwd_form").validate({
+    rules: {
+      'user[password]': {
+          required: true,
+          minlength: 6,
+          maxlength: 18
+	  },
+	  'user[password_confirmation]': {
+	  	  required: true,
+		   equalTo: '#confirm_password'
+	  }
+    },
+    messages: {
+      'user[password]': {
+	  	  required: '请输入密码',
+          minlength: '至少{0}个字符',
+          maxlength: '最多{0}个字符'
+	  },
+	  'user[password_confirmation]': {
+	  	  required: '确认密码不能为空!',
+		   equalTo: '确认密码不正确!'
+	  }
+    }
+ });
+
+<%end%>
+
+<div class="row main">
+  <div class="span6 offset3">
+			<%= form_for(@user, url: user_update_r_pwd_path, :html=>{ id: 'check_pwd_form', method: :put }) do |f| %>
+			  <%= render 'shared/error_messages' %>
+			  <input type="hidden" name="email" value="<%=@user.email%>" />
+			  <%= f.label :password, "新密码" %>
+			  <%= f.password_field :password, id: 'confirm_password' %>
+
+			  <%= f.label :password_confirmation, "确认密码" %>
+			  <%= f.password_field :password_confirmation %>
+
+			  <%= f.submit "保存", class: "btn btn-large btn-primary" %>
+			<% end %>
+
+	</div><!--/row-->
+</div>
+
+
+

@@ -1,0 +1,121 @@
+<% provide(:title, '头像设置') %>
+
+<% content_for :style do %>
+  <%= stylesheet_link_tag "imgareaselect-0.9.8/imgareaselect-default" %>
+<%end%>
+<% content_for :scripts do %>
+    <%= javascript_include_tag "jquery.imgareaselect-0.9.8/scripts/jquery.imgareaselect.min" %>
+    <%= javascript_include_tag "jquery.jUploader-1.01" %>
+	<script type="text/javascript">
+		//ajax加载上传后的图片以及调用截取插件
+		function ajax_avatar_form(width,height){
+		  url = '/user/ajax_avatar_form';
+		  $.ajax({
+		    url:url,
+		    type:'GET',
+		    data:{
+                      width: width,
+                      height: height,
+                      type: 1
+                    },
+		    async:false,
+		    cache:false,
+		    success:function(obj){
+		      $('#show_avatar').html(obj);
+		    }
+		  });
+		};
+		
+		// 全局配置（这样就不必每次初始化时都加上下面的设置）
+		$.jUploader.setDefaults({
+		    cancelable: true, // 可取消上传
+		    allowedExtensions: ['jpg', 'jpeg', 'png'], // 只允许上传图片
+		    messages: {
+		        upload: '上传头像',
+		        cancel: '取消',
+		        emptyFile: "{file} 为空，请选择一个文件.",
+		        invalidExtension: "{file} 后缀名不合法. 只有 {extensions} 是允许的.",
+		        onLeave: "文件正在上传，如果你现在离开，上传将会被取消。"
+		    }
+		});
+	</script>
+<% end %>
+
+<% content_for :jquery do %>
+	<% session_key = Rails.application.config.session_options[:key] %>
+	var params = '<%= session_key %>=<%= cookies[session_key] %>&authenticity_token=<%= form_authenticity_token %>';
+	//alert(params);
+	$.jUploader({
+	    button: 'upload_avatar', // 这里设置按钮id
+	    action: '/upload/avatar_upload?'+params, // 这里设置上传处理接口
+
+	    // 开始上传事件
+	    onUpload: function (fileName) {
+	        $('#tip').text('正在上传 ' + fileName + ' ...');
+	    },
+
+    	// 上传完成事件
+    	onComplete: function (fileName, response) {
+        	// response是json对象，格式可以按自己的意愿来定义，例子为： { success: true, fileUrl:'' }
+        	if (response.success) {
+	            $('#tip').text(fileName + ' 上传成功。');
+	            $('#thumbnail').imgAreaSelect({x1:0,y1:0,x2:0,y2:0,imageWidth:1,imageHeight:1});
+	            $('div.imgareaselect-outer').remove();
+	            ajax_avatar_form(response.o_width,response.o_height);
+	        } else {
+	            $('#tip').text(response.message);
+	        }
+    	},
+    	// 取消上传事件
+    	onCancel: function (fileName) {
+        	$('#tip').text(fileName + ' 上传取消。');
+    	},
+    	// 系统信息显示（例如后缀名不合法）
+    	showMessage: function (message) {
+        	$('#tip').text(message);
+    	}
+	});
+<% end %>
+
+<div class="main">
+	<!--二级导航-->
+	<div class="row-fluid">
+		<%=render 'left_navigation'%>
+
+		<div class="row">
+		  <div class="span6 offset3">
+			<div class="fl  mr-20">
+				<%= user_avatar_tag(current_user, 'b', width: 180, height: 180, class: "bdr-5", id: "big_avatar") %>
+				<p>180x180</p>
+			</div>
+			<div class="fl mr-20">
+				<%= user_avatar_tag(current_user, 'm', width: 100, height: 100) %>
+				<p>100x100</p>
+			</div>
+			<div class="fl">
+				<%= user_avatar_tag(current_user, 's', width: 50, height: 50) %>
+				<p>50x50</p>
+			</div>
+			<span class="blank20"></span>
+			<div class="">
+				<span>
+					<div id="upload_avatar" class="button black medium-btn">
+						<span></span>
+					</div> <!-- div里的span必须保留，用来放文字的 -->
+				</span>
+				<span class="blank10"></span>
+				<span>
+					<span id="tip" style="color:#FF6600">请选择头像图片</span>
+				</span>
+			</div>
+
+			<!--显示上传头像并截取区域-->
+			<div id="show_avatar"></div>
+
+		  </div>
+		</div>
+	</div><!--/row-->
+</div>
+
+
+

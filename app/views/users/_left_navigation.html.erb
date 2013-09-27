@@ -1,0 +1,12 @@
+	<div class="span3" style="margin-right:20px;">
+	  <div class="well sidebar-nav">
+		<ul class="nav nav-list">
+		  <li class="nav-header"> 基本资料</li>
+		  <li class="<%=css_active?(@css_edit_info)%>"><%=link_to '基本信息', user_edit_info_path %></li>
+		  <li class="<%=css_active?(@css_edit_avatar)%>"><%=link_to '头像设置', user_edit_avatar_path %></li>
+		  <li class="<%=css_active?(@css_edit_pwd)%>"><%=link_to '修改密码', user_edit_pwd_path %></li>
+		  <li class="nav-header">其它</li>
+		  <li><a href="javascript:void(0);">other</a></li>
+		</ul>
+	  </div><!--/.well -->
+	</div><!--/span-->

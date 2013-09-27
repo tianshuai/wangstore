@@ -1,0 +1,99 @@
+<script type="text/javascript">
+
+function check_thumb(){
+
+  var x1 = $('#x1').val();
+  var y1 = $('#y1').val();
+  var w = $('#w').val();
+  var h = $('#h').val();
+  if(x1=='' || y1=='' || w==0 || h==0){
+    alert("请先截取你的头像!");
+    return false;
+  }else{
+    return true;
+  }
+}
+
+$(document).ready(function() {
+  var o_width = <%=params[:width]%>;
+  var o_height = <%=params[:height]%>;
+
+  function preview(img, selection) {
+    var scaleX = 180 / selection.width;
+    var scaleY = 180 / selection.height;
+
+    $('#thumbnail + div > img').css({
+      width: Math.round(scaleX * o_width) + 'px',
+      height: Math.round(scaleY * o_height) + 'px',
+      marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+      marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+    });
+    $('#x1').val(selection.x1);
+    $('#y1').val(selection.y1);
+    $('#x2').val(selection.x2);
+    $('#y2').val(selection.y2);
+    $('#w').val(selection.width);
+    $('#h').val(selection.height);
+  }
+
+
+  if(o_width<=180 && o_height>o_width)
+  {
+    var def_w = o_width;
+    var def_h = o_width;
+  }else if(o_width<=180 && o_height<o_width)
+  {
+    var def_h = o_height;
+    var def_w = o_height;
+  }else if(o_width>=180 && o_height>o_width)
+  {
+    var def_h = 180;
+    var def_w = 180;
+  }else if(o_width>=180 && o_height<o_width)
+  {
+    if(o_height>180)
+    {
+      var def_h = 180;
+      var def_w = 180;
+    }else
+    {
+      var def_h = o_height;
+      var def_w = o_height;
+    }
+  }else if(o_width = o_height)
+  {
+    if(o_width>180)
+    {
+      var def_h = 180;
+      var def_w = 180;
+    }else
+    {
+      var def_h = o_width;
+      var def_w = o_width;
+    }
+  }
+
+  $('#thumbnail').imgAreaSelect({x1: 0, y1: 0, x2: def_w, y2: def_h,aspectRatio: '1:1', onSelectChange: preview, onInit: preview});
+});
+
+</script>
+
+<div id="clear_box" class="pt-20">
+	<h2 class="ft16">选取头像</h2>
+	<div align="center">
+	  <%= user_avatar_tag(current_user,'o', class: "bdr-5", id: "thumbnail", alt: "头像源文件", style: "float:left;margin-right:10px;") %>
+	  <div style="border:1px #e5e5e5 solid; float:left; position:relative; overflow:hidden; width:180px; height:180px;">
+	    <%= user_avatar_tag(current_user,'o', class: "bdr-5 drop_img", alt: "头像预览", style: "position: relative;") %>
+	  </div>
+	  <div class="clearfix"></div>
+	  <%= form_tag upload_thumb_avatar_upload_path, method: :get do %>
+	    <%=hidden_field_tag :x1, :value =>"", :id=>'x1'%>
+	    <%=hidden_field_tag :y1, :value =>"", :id=>'y1'%>
+	    <%=hidden_field_tag :w, :value =>"0", :id=>'w'%>
+	    <%=hidden_field_tag :h, :value =>"0", :id=>'h'%>
+        <%=hidden_field_tag :type, :value =>params[:type]%>
+	    <%=submit_tag "保存头像", :onclick=>"return check_thumb();", :class=>"button blue medium-btn mt-20"%>
+	  <%end%>
+	</div>
+</div>
+

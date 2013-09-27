@@ -1,0 +1,47 @@
+<% provide(:title, "登录") %>
+
+<% content_for :jquery do %>
+
+  //validate验证
+ $("#check_login_form").validate({
+    rules: {
+      'session[email]': {
+          required: true,
+		  email: true
+      },
+      'session[password]': {
+          required: true
+	  }
+		  	
+    },
+    messages: {
+      'session[email]': {
+	  	  required: '请输入你的邮箱!',
+		  email: '请输入正确邮箱格式!'
+      },
+      'session[password]': {
+	  	  required: '请输入密码'
+	  }
+    }
+
+ });
+
+<%end%>
+
+<div class="row main">
+  <div class="span6 offset3">
+	<%= form_for(:session, url: sessions_path, html: { id: 'check_login_form' }) do |f| %>
+
+      <%= f.label :email, '邮箱:' %>
+      <%= f.text_field :email %>
+
+      <%= f.label :password, '密码:' %>
+      <%= f.password_field :password %>
+
+      <%= f.submit "登录", class: "btn btn-large btn-primary" %>
+	  <%#= link_to '忘记密码?', user_find_pwd_path %>
+    <% end %>
+
+    <p>新用户? <%= link_to "现在注册!", signup_path %></p>
+  </div>
+</div>
