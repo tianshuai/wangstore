@@ -80,7 +80,7 @@ class UsersController < ApplicationController
 	@user = current_user
 	if @user.authenticate(params[:current_password])
 	  params[:user].delete :current_password
-	  if current_user.update_attributes(params[:user])
+	  if current_user.update_attributes(update_pwd_params)
 		flash[:success] = "更新成功!"
 		#sign_in @user
 	    redirect_to @user
@@ -89,7 +89,7 @@ class UsersController < ApplicationController
 		render 'edit_pwd'
 	  end 
 	else
-	  @user.errors.add(:current_user,'原密码不正确!')
+	  @user.errors.add(:current_user, '原密码不正确!')
 	  flash[:error] = '更新失败!'
 	  render 'edit_pwd'
 	end
@@ -125,6 +125,26 @@ class UsersController < ApplicationController
 		else
 	  	  result = true
 		end
+	  when '3'
+	    user = User.find_by(email: val.downcase)
+		if user.present?
+	      result = true
+		else
+	  	  result = false
+		end
+	  when '4'
+		users = User.where(name: val)
+		if users.present?
+		  names = users.map{ |user| user.name }
+		  users.each do |user|
+			if user.name.eql?(current_user.name)
+			  result = true
+			  break
+			end
+		  end
+		else
+		  result = true
+		end
 	  end
 	else
 	  result = false
@@ -141,6 +161,10 @@ class UsersController < ApplicationController
 
   def update_base_info
     params.require(:user).permit( :name, :sex )
+  end
+
+  def update_pwd_params
+	params.require(:user).permit(:password, :password_confirmation)
   end
 
 

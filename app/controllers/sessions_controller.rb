@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   #注销
   def destroy
     sign_out
-    flash.now[:success] = '成功退出!'
+    flash[:success] = '成功退出!'
     redirect_to root_path
   end
 

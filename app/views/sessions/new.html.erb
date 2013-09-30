@@ -28,20 +28,21 @@
 
 <%end%>
 
-<div class="row main">
-  <div class="span6 offset3">
-	<%= form_for(:session, url: sessions_path, html: { id: 'check_login_form' }) do |f| %>
+<%= form_for(:session, url: sessions_path, html: { id: 'check_login_form', role: 'form', class: 'form-signin' }) do |f| %>
+	<h2 class="form-signin-heading">请登录</h2>
 
-      <%= f.label :email, '邮箱:' %>
-      <%= f.text_field :email %>
+	  <%= f.text_field :email, class: 'form-control', placeholder: '邮箱', autofocus: ''  %>
 
-      <%= f.label :password, '密码:' %>
-      <%= f.password_field :password %>
 
-      <%= f.submit "登录", class: "btn btn-large btn-primary" %>
-	  <%#= link_to '忘记密码?', user_find_pwd_path %>
-    <% end %>
+	  <%= f.password_field :password, class: 'form-control', placeholder: '密码' %>
 
-    <p>新用户? <%= link_to "现在注册!", signup_path %></p>
-  </div>
-</div>
+	  <label class="checkbox">
+		<input type="checkbox" value="remember-me"> 记住密码
+	  </label>
+
+	  <%= f.submit "登录", class: "btn btn-large btn-primary" %>
+	  <%= link_to '忘记密码?', user_find_pwd_path %>
+<% end %>
+
+<p>新用户? <%= link_to "现在注册!", signup_path %></p>
+

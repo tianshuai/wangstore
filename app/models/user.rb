@@ -97,6 +97,11 @@ class User < ActiveRecord::Base
   ##
   #方法
 
+  #账户是否被禁用?
+  def forbid?
+	return true if self.state==STATE[:no]
+	return false
+  end
 
 
   def User.new_remember_token

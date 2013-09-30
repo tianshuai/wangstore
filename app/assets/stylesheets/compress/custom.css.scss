@@ -2,13 +2,24 @@
 
 /* universal */
 
+body {
+  padding-top: 60px;
+}
+
+.container {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  *zoom: 1;	//兼容ie6/7
+}
+
+.form-signin {
+  width: 300px;
+}
 
 textarea {
   resize: vertical;
 }
-
-
-
 
 
 /* mixins, variables, etc. */

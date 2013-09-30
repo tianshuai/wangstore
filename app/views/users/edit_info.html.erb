@@ -52,30 +52,28 @@
 
 <%end%>
 
-<div class="main">
-	<!--二级导航-->
-	<div class="row-fluid">
-	<%=render 'left_navigation'%>
-
-		<div class="row">
-		  <div class="span6 offset3">
-			<%= form_for(@user, url: user_update_info_path, html: { id: 'validate_user_info', :method=>:patch }) do |f| %>
-			  <%= render 'shared/error_messages' %>
-
-			  <%= f.label :email, '邮箱' %>
-			  <%= f.text_field :email, disabled: true %>
-			  <%= f.label :name, '用户名' %>
-			  <%= f.text_field :name %>
-
-			  <%= f.label :sex, ' 性别' %>
-			  <%= f.radio_button :sex, 0 %>保密&nbsp;
-			  <%= f.radio_button :sex, 1 %>男&nbsp;
-			  <%= f.radio_button :sex, 2 %>女
-			  <br />
-			  <%= f.submit "保存", class: "btn btn-large btn-primary" %>
-			<% end %>
-
+<div class="row">
+	<div class="col-md-3">
+	  <%=render 'left_navigation'%>
+	</div>
+	<div class="col-md-9">
+		<%= form_for(@user, url: user_update_info_path, html: { id: 'validate_user_info', :method=>:patch, role: 'form', class: 'form-signin' }) do |f| %>
+		  <%= render 'shared/error_messages' %>
+  		  <div class="form-group">
+		    <%= f.label :email, '邮箱:' %>
+		    <%= f.text_field :email, disabled: true, class: 'form-control' %>
+	  	  </div>
+  		  <div class="form-group">
+		    <%= f.label :name, '用户名:' %>
+		    <%= f.text_field :name, class: 'form-control' %>
 		  </div>
-		</div>
-	</div><!--/row-->
+
+		  <%= f.label :sex, ' 性别:' %>
+		  <%= f.radio_button :sex, 0 %>保密&nbsp;
+		  <%= f.radio_button :sex, 1 %>男&nbsp;
+		  <%= f.radio_button :sex, 2 %>女
+		  <br />
+		  <%= f.submit "保存", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
 </div>

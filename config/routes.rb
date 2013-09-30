@@ -71,12 +71,12 @@ Wangstore::Application.routes.draw do
   match 'user/edit_pwd',			to: 'users#edit_pwd',			via: :get
   match 'user/update_pwd',			to: 'users#update_pwd',			via: :patch
   match 'user/ajax_avatar_form',	to: 'users#ajax_avatar_form',	via: :get
-  post 'user/ajax_validate_only',	to: 'users#ajax_validate_only'
+  match 'user/ajax_validate_only',	to: 'users#ajax_validate_only',	via: :patch
   get 'user/find_pwd',				to: 'users#find_pwd'
   get 'user/send_mail',			to: 'users#send_mail'
   get 'user/go_mail',				to: 'users#go_mail'
   get 'user/reset_pwd',				to: 'users#reset_pwd'
-  put 'user/update_r_pwd',			to: 'users#update_r_pwd'
+  match 'user/update_r_pwd',		to: 'users#update_r_pwd',		via: :patch
 
   #头像设置
   match 'user/edit_avatar',			to: 'users#edit_avatar',		via: :get

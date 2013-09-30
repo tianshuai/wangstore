@@ -91,25 +91,30 @@
 
 <%end%>
 
-<div class="main">
-  <div class="span6 offset3">
-	  <%= form_for(@user, html: { id: "check_loginup_form" }) do |f| %>
-      <%= render 'shared/error_messages' %>
 
+  <%= form_for(@user, html: { id: "check_loginup_form", role: 'form', class: 'form-signin' }) do |f| %>
+    <%= render 'shared/error_messages' %>
+    <div class="form-group">
       <%= f.label :name, '用户名' %>
-      <%= f.text_field :name %>
+  	  <%= f.text_field :name, class: 'form-control', autofocus: '' %>
+    </div>
 
-      <%= f.label :email, '邮箱' %>
-      <%= f.text_field :email %>
+    <div class="form-group">
+  	  <%= f.label :email, '邮箱' %>
+  	  <%= f.text_field :email, class: 'form-control' %>
+	</div>
 
-      <%= f.label :password, '密码' %>
-      <%= f.password_field :password, id: 'confirm_password' %>
+    <div class="form-group">
+  	  <%= f.label :password, '密码' %>
+  	  <%= f.password_field :password, id: 'confirm_password', class: 'form-control' %>
+	</div>
 
-      <%= f.label :password_confirmation, "确认密码" %>
-      <%= f.password_field :password_confirmation %>
+    <div class="form-group">
+  	  <%= f.label :password_confirmation, "确认密码" %>
+  	  <%= f.password_field :password_confirmation, class: 'form-control' %>
+	</div>
 
-      <%= f.submit "注册", class: "btn btn-large btn-primary" %>
-    <% end %>
-    <p>已有账户? <%= link_to "现在登录!", signin_path %></p>
-  </div>
-</div>
+    <%= f.submit "注册", class: "btn btn-large btn-primary" %>
+  <% end %>
+<p>已有账户? <%= link_to "现在登录!", signin_path %></p>
+
