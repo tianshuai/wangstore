@@ -1,0 +1,43 @@
+<tr id="post_<%=b.id%>" class="user_unaudited">
+    <td><label><span class="btn-medium">选中</span><%=check_box_tag "content[ids][]", b.id %></label></td>
+    <td><%=b.id%></td>
+	<td><%= link_to truncate(b.title, length: 10), b.view_url, target: '_blank' %></td>
+	<td>
+		<%if b.asset.present?%>
+			<%=asset_s_tag(b.asset,{ width: 50, height: 50 }) %>
+		<%else%>
+			无图
+		<%end%>
+	</td>
+	<td><%=b.category.name if b.category.present?%></td>
+	<td><%=b.user.name if b.user.present?%></td>
+    <td class="show_state_<%=b.id%>"><%=b.state==0 ? '禁用' : '正常'%></td>
+	<td class="show_publish_<%=b.id%>"><%=b.publish==0 ? '否' : '是' %></td>
+	<td class="show_stick_<%=b.id%>"><%=b.stick==0 ? '否' : '是'%></td>
+	<td><%=b.created_at.strftime("%y.%m.%d")%></td>
+  <td>
+	<span class="btn_publish_<%=b.id%>">
+      <% if b.publish==0 %>
+		<%=link_to "发布" , { action: 'ajax_set_publish', id: b.id, type: 1 }, remote: true, method: :post %> |
+      <%else%>
+        <%=link_to "取消发布",{ action: 'ajax_set_publish', id: b.id, type: 0 }, remote: true, method: :post%> |
+      <%end%>
+	</span>
+	<span class="btn_stick_<%=b.id%>">
+      <% if b.stick==0 %>
+		<%=link_to "推荐" , { action: 'ajax_set_stick', id: b.id, type: 1 }, remote: true, method: :post %> |
+      <%else%>
+        <%=link_to "取消推荐",{ action: 'ajax_set_stick', id: b.id, type: 0 }, remote: true, method: :post%> |
+      <%end%>
+	</span>
+	<span class="btn_state_<%=b.id%>">
+      <% if b.state==0 %>
+		<%=link_to "启用" , { action: 'ajax_set_state', id: b.id, type: 1 }, remote: true, method: :post %> |
+      <%else%>
+        <%=link_to "禁用",{ action: 'ajax_set_state', id: b.id, type: 0 }, remote: true, method: :post%> |
+      <%end%>
+	</span>
+	<%=link_to "编辑", edit_admin_art_path(b)%>
+    <%=link_to "删除", { action: 'destroy', id: b.id }, data: { confirm: "确认执行此操作?" }, remote: true, method: :delete %>
+  </td>
+</tr>

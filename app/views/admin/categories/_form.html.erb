@@ -1,0 +1,49 @@
+  <%= form_for([:admin,@category], html: { id: "", role: 'form' }) do |f| %>
+	  <% if @category.errors.any? %>
+		<div id="error_explanation">
+		  <h2><%= @category.errors.count %>处错误提示: </h2>
+
+		  <ul>
+		  <% @category.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		  <% end %>
+		  </ul>
+		</div>
+	  <% end %>
+	<%= f.hidden_field :user_id, value: current_user.id %>
+    <div class="form-group">
+      <%= f.label :name, '名称' %>
+  	  <%= f.text_field :name, class: 'form-control', autofocus: '' %>
+    </div>
+	<div class="form-group">
+      <%= f.label :kind, '类型 ' %>
+	  <%= f.select :kind, [ [  '文章', 1] ], :prompt=>"select a payment method", class: '' %> 
+	</div>
+	<div class="form-group">
+      <%= f.label :pid, '级别' %>
+	  <%= f.select :pid, Category.parent_options(1), :prompt=>"select a payment method", class: '' %> 
+	</div>
+
+    <div class="form-group">
+  	  <%= f.label :description, '描述' %>
+  	  <%= f.text_area :description, class: 'form-control' %>
+	</div>
+    <div class="form-group">
+      <%= f.label :sort, '排序' %>
+  	  <%= f.text_field :sort, class: 'form-control' %>
+    </div>
+	<div class="form-group">
+	  <%= f.label :state, ' 状态:' %>
+	  <%= f.radio_button :state, 0 %>关闭&nbsp;
+	  <%= f.radio_button :state, 1 %>开启&nbsp;
+	</div>
+	<div class="form-group">
+	  <%= f.label :stick, ' 是否推荐:' %>
+	  <%= f.radio_button :stick, 0 %>否 &nbsp;
+	  <%= f.radio_button :stick, 1 %>是 &nbsp;
+	</div>
+  <div class="actions">
+    <%= f.submit '保存' %>
+	<%=link_to '返回', admin_categories_path %>
+  </div>
+  <% end %>

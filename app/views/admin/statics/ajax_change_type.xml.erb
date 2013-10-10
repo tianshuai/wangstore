@@ -1,0 +1,24 @@
+<taconite>
+	<replaceContent select="#shared_category"><![CDATA[
+     <!--引用分类-->
+	<%type=@type%>
+	<%current_category_id = @category%>
+	<label class="field-title">分类</label>
+	<div class="share_category">
+	  <input type="hidden" class="category_tag" name="static[static_type_id]" value="<%=current_category_id%>" />
+	  <% StaticType.category_arr(type).each do |category| %>
+		<%if category.present?%>
+		  <% if current_category_id.present? and current_category_id.to_s == category.id.to_s %>
+			<a class="ajax-hash current" href="#add_and_drop_category" cate_id="<%=category.id%>"><%=category.name%></a>
+		  <%else%>
+			<a class="ajax-hash " href="#add_and_drop_category" name="category_btn_<%=category.id%>" cate_id="<%=category.id%>"><%=category.name%></a>
+		  <%end%>
+		<%end%>
+	  <%end%>
+	</div>
+
+	]]></replaceContent>
+	<eval>
+	</eval>
+
+</taconite>

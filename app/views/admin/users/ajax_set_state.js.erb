@@ -1,0 +1,12 @@
+<%if @success%>
+	var d = '<%=params[:id]%>';
+	<%if params[:type]=='0'%>
+		$('.show_state_'+d).text('禁用');
+		$('.btn_state_'+d).html('<%=raw(link_to("解禁" , { action: 'ajax_set_state', id: params[:id], type: 1 }, remote: true, method: :post))%> |');
+	<%else%>
+		$('.show_state_'+d).text('正常');
+		$('.btn_state_'+d).html('<%=raw(link_to("禁用" , { action: 'ajax_set_state', id: params[:id], type: 0 }, remote: true, method: :post))%> |');
+	<%end%>
+<%else%>
+	alert("<%=@notice%>");
+<%end%>

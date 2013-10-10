@@ -1,7 +1,6 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
 
-  #include ActiveModel::SecurePassword
   include ActiveModel::ForbiddenAttributesProtection
 
 
@@ -19,12 +18,6 @@ class User < ActiveRecord::Base
 
   #创建用户登录标识(唯一随机数)
   before_create :create_remember_token
-
-  #创建用户登录标识(唯一随机数)
-  #before_create :create_remember_token
-
-  #保护字段(在rails4.0中放在controller负责)
-  #attr_protected :role_id
 
   #密码自动加密
   has_secure_password
@@ -50,7 +43,7 @@ class User < ActiveRecord::Base
     ok: 1
   }
 
-  TYPE = {
+  KIND = {
     #学生
     student: 1,
     #老师
@@ -83,14 +76,11 @@ class User < ActiveRecord::Base
   #validates_presence_of :password_confirmation,   message: '不能为空'
 
 
-  ##属性
-
-
   ##过滤
   #用户排序
-  scope :recent,      	-> { desc(:_id) }
+  scope :recent,      	-> { order("id DESC") }
   #学生
-  scope :students,    	-> { where(type: TYPE[:student]) }
+  scope :students,    	-> { where(kind: KIND[:student]) }
   #最近登录排序
   scope :last_order,	-> { desc(:last_time) }
 
@@ -103,17 +93,36 @@ class User < ActiveRecord::Base
 	return false
   end
 
+  #用户类型
+  def kind_str
+	case self.kind
+	when 1 then '学生'
+	when 2 then '老师'
+	else
+	  '未定义'
+	end
+  end
 
-  def User.new_remember_token
+  #权限说明
+  def role_str
+	case self.role_id
+	when 1 then '普通'
+	when 2 then '编辑'
+	when 7 then '管理员'
+	when 8 then '系统管理员'
+    end
+  end
+
+  def self.new_remember_token
     SecureRandom.urlsafe_base64
   end
 
-  def User.encrypt(token)
+  def self.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
 
-
-private
+  ##私有方法
+  private
 
   #创建用户登录标识
   def create_remember_token

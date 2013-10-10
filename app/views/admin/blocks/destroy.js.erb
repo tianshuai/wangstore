@@ -1,0 +1,5 @@
+<%if @success%>
+	$('#block_<%=params[:id]%>').remove();
+<%else%>
+	alert('<%=@notice%>');
+<%end%>

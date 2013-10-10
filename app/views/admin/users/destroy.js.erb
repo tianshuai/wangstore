@@ -1,0 +1,5 @@
+<%if @success%>
+	$('#user_<%=params[:id]%>').remove();
+<%else%>
+	alert('<%=@notice%>');
+<%end%>

@@ -1,0 +1,19 @@
+<div class="sidebar-menu">
+    <a href="#systemInfo" class="nav-header menu-first collapsed" data-toggle="collapse"><i class=""></i> 系统信息</a>
+    <ul id="systemInfo" class="nav nav-list collapse menu-second in">
+		<li class="<%= @css_admin_base ? 'menu-second-selected' : '' %>"><%= link_to "基本信息", admin_home_path %></li>
+    </ul>
+    <a href="#userMeun" class="nav-header menu-first collapsed" data-toggle="collapse"><i class=""></i> 用户管理</a>
+    <ul id="userMeun" class="nav nav-list collapse menu-second in">
+		<li class="<%= @css_admin_user ? 'menu-second-selected' : '' %>"><%= link_to "用户列表", admin_users_path %></li>
+    </ul>
+    <a href="#categoryMeun" class="nav-header menu-first collapsed" data-toggle="collapse"><i class=""></i> 分类管理</a>
+    <ul id="categoryMeun" class="nav nav-list collapse menu-second in">
+		<li class="<%= @css_admin_cate ? 'menu-second-selected' : '' %>"><%= link_to "分类列表", admin_categories_path %></li>
+    </ul>
+    <a href="#articleMenu" class="nav-header menu-first collapsed" data-toggle="collapse"><i class=""></i> 内容管理</a>
+    <ul id="articleMenu" class="nav nav-list collapse menu-second in">
+		<li class="<%= @css_admin_user ? 'menu-second-selected' : '' %>"><%= link_to "文章列表", admin_users_path %></li>
+    </ul>
+</div>
+

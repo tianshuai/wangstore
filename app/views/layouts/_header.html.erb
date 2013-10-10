@@ -33,7 +33,9 @@
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %><b class="caret"></b></a>
 				  <ul class="dropdown-menu">
                 	<li><%= link_to "个人设置", user_edit_info_path %></li>
-					<li><a href="#">系统管理</a></li>
+                	<%if admin_system?%>
+						<li><%= link_to "系统管理", admin_home_path %></li>
+					<%end%>
 					<li class="divider"></li>
 					<!--<li class="dropdown-header">Nav header</li>-->
 					<li><%= link_to '注销', signout_path, method: :delete %></li>

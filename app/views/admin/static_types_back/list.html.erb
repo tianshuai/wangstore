@@ -1,0 +1,49 @@
+<%=provide(:title, '分类列表')%>
+<div class="main">
+	<%=render 'admin/base/left_bar'%>
+    <div class="span10">
+      <!--Body content-->
+          <%= render "admin/static_types/tool_bar"%>
+          <span class="blank10"></span>
+          <div class="sub_operation clearfix">
+             <div class="left_operation">
+                选择：
+                <a id="select_all" class="pointer">全选 </a>
+                ｜
+                <a id="select_un" class="pointer">反选 </a>
+                ｜
+                <a id="select_cancel" class="pointer">取消 </a>
+              </div>
+                  <div class="clearfix">
+                    <div class="operate_box clearfix">
+                      <%=link_to('+新建', new_admin_static_type_path )%>
+                      <%=link_to('批量删除', {action: 'destroy_more',format: 'js'}, :class=>"select_post")%>
+                    </div>
+                  </div>
+          </div>
+          <span class="blank10"></span>
+          <table class="admin-box">
+            <thead>
+              <tr>
+                <th></th>
+                <th>ID</th>
+                <th>名称</th>
+                <th>标识</th>
+                <th>类型</th>
+                <th>排序</th>
+                <th>状态</th>
+                <th>管理</th>
+              </tr>
+            </thead>
+            <tbody >
+              <%@static_types.each do |b|%>
+                <%= render partial: "admin/static_types/item", :locals => { :b => b } %>
+              <%end%>
+            </tbody>
+          </table>
+          <%= will_paginate @static_types if @static_types.present? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

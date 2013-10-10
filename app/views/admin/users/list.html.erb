@@ -1,0 +1,106 @@
+<%=provide(:title, '后台首页')%>
+  <%content_for :scripts do%>
+	<script type="text/javascript">
+		//为了安全，只有超级管理员才能调用此方法
+		<%if system?%>
+		function ajax_set_role(){
+			var role_id = $(":input[name='set_role_select']").val();
+			if(role_id==0)
+			{
+				alert('请选择权限级别!');
+				return false;
+			}
+			var arrChk = new Array()
+			$("input:checkbox[name]").each(function(){
+				if($(this).is(':checked')){
+					arrChk+=this.value + ',';
+				}
+			});
+
+			if(arrChk != ''){
+				var to_url = '/admin/users/ajax_set_role';
+				$.ajax({
+					url: to_url,
+					type: 'post',
+					data: {
+						'ids' : arrChk,
+						'role_id' : role_id,
+						'format' : 'js'
+					}
+				});
+			}
+			else{
+				alert("请至少选择一个用户!");
+			}
+		}
+		<%end%>
+	</script>
+  <%end%>
+  <div class="row">
+	  <div class="col-md-2">
+		<%=render "admin/base/left_bar"%>
+	  </div>
+	  <div class="col-md-10">
+	      <!--Body content-->
+		  <%= render "admin/users/tool_bar"%>
+		  <span class="blank10"></span>
+		  <div class="sub_operation clearfix">
+			 <div class="left_operation">
+				选择：
+				<a id="select_all" class="pointer">全选 </a>
+				｜
+				<a id="select_un" class="pointer">反选 </a>
+				｜
+				<a id="select_cancel" class="pointer">取消 </a>
+			  </div>
+			  <div class="clearfix">
+				<!--
+				<div class="operate_box clearfix">
+					<%=link_to('审核通过', '#', class: 'select_post')%>
+					<%=link_to('禁用', '#', class: "select_post")%>
+				</div>
+				-->
+			  <%if system?%>
+				  <form class="form-box fr">
+					<p align="right" class="fl mr-10">
+						<div class="search_select fl mr-10">
+							<select name="set_role_select">
+								<option value="0">=级别=</option>
+								<option value="1">普通用户</option>
+								<option value="2">编辑</option>
+								<option value="7">管理员</option>
+							</select>
+						</div>
+						<a href="#ajax_set_role" class="ajax-hash btn-medium btn-mt0 fl">设置</a>
+					</p>
+				  </form>
+			  <%end%>
+			  </div>
+
+		  </div>
+		  <span class="blank10"></span>
+		  <table class="admin-box">
+			<thead>
+			  <tr>
+				<th></th>
+				<th>ID</th>
+				<th>用户</th>
+				<th>邮箱</th>
+				<th>类型</th>
+				<th>级别</th>
+				<th>注册/登录 时间</th>
+				<th>IP</th>
+				<th>状态</th>
+				<th>管理</th>
+			  </tr>
+			</thead>
+			<tbody >
+			  <%@users.each do |b|%>
+				<%= render partial: "admin/users/item", :locals => { :b => b } %>
+			  <%end%>
+			</tbody>
+		  </table>
+		  <%= will_paginate @users if @users.present? %>
+	  </div>
+  </div>
+

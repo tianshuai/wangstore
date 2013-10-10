@@ -1,0 +1,73 @@
+<%= form_for([:admin,@static]) do |f| %>
+  <% if @static.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @static.errors.count %>处错误提示: </h2>
+
+      <ul>
+      <% @static.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <input type="hidden" name="asset_ids" id="editor_ids" />
+  <div class="field">
+    <%= f.label :position_id, '所属位置：' %>
+	<%=f.select :position_id, options: Position.select_name_options %>
+	<!--ajax显示栏目位尺寸-->
+	<span id="ads_show_size"></span>
+  </div>
+  <span class="blank10"></span>
+  <div class="field">
+    <%= f.label :mark, '标识(格式只能是字母或字母加下划线)：' %>
+    <%= f.text_field :mark %>
+  </div>
+  <span class="blank10"></span>
+  <div class="field">
+    <%= f.label :short_title, '短标题：' %>
+    <%= f.text_field :short_title %>
+  </div>
+  <span class="blank10"></span>
+  <div class="field">
+    <%= f.label :title, '标题：' %>
+    <%= f.text_field :title %>
+  </div>
+  <span class="blank10"></span>
+  <div id="shared_category" class="row-nopos block-category clearfix">
+     <!--引用分类-->
+     <%#=render partial: "shared/share_static_type",:locals => { :current_category_id=>@static.static_type_id, :type=>1} %>
+  </div>
+  <span class="blank10"></span>
+  <div class="field">
+    <%= f.label :content, '内容:' %>
+    <%= f.text_area :content, style: "height:500px;", id: 'kind_editor' %>
+  </div>
+  <span class="blank10"></span>
+  <div class="field">
+    <%= f.label :order, '排序：' %>
+    <%= f.number_field :order %>
+  </div>
+  <span class="blank10"></span>
+  <div class="field">
+    <%= f.label :stick, '推荐' %>
+    <%= f.radio_button :stick, 0 %>否&nbsp;
+    <%= f.radio_button :stick, 1 %>是
+  </div>
+  <span class="blank10"></span>
+  <div class="field">
+    <%= f.label :publish, '是否发布' %>
+    <%= f.radio_button :publish, 0 %>否&nbsp;
+    <%= f.radio_button :publish, 1 %>是
+  </div>
+  <span class="blank10"></span>
+  <div class="field">
+    <%= f.label :state, '状态' %>
+    <%= f.radio_button :state, 0 %>禁用&nbsp;
+    <%= f.radio_button :state, 1 %>正常
+  </div>
+  <span class="blank20"></span>
+  <div class="actions">
+    <%= f.submit '保存' %>
+	<%=link_to '返回', admin_statics_path %>
+  </div>
+<% end %>

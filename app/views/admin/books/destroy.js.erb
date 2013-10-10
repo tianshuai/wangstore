@@ -1,0 +1,5 @@
+<%if @success%>
+	$('#post_<%=params[:id]%>').remove();
+<%else%>
+	alert('<%=@notice%>');
+<%end%>

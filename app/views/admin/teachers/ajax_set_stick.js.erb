@@ -1,0 +1,12 @@
+<%if @success%>
+	var d = '<%=params[:id]%>';
+	<%if params[:type]=='0'%>
+		$('.show_stick_'+d).text('否');
+		$('.btn_stick_'+d).html('<%=raw(link_to("推荐" , { action: 'ajax_set_stick', id: params[:id], type: 1 }, remote: true, method: :post))%> |');
+	<%else%>
+		$('.show_stick_'+d).text('是');
+		$('.btn_stick_'+d).html('<%=raw(link_to("取消推荐" , { action: 'ajax_set_stick', id: params[:id], type: 0 }, remote: true, method: :post))%> |');
+	<%end%>
+<%else%>
+	alert("<%=@notice%>");
+<%end%>

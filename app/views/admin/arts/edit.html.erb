@@ -1,0 +1,33 @@
+<%=provide(:title, '编辑作品')%>
+<% content_for :scripts do %>
+	<script style="text/javascript">
+    //添加删除分类
+    function add_and_drop_category()
+    {
+      var obj = $(this);
+      var cate_id = obj.attr('cate_id');
+      obj.addClass('current').siblings('a').removeClass('current');
+      obj.parent('div').find('.category_tag').val(cate_id);
+    }
+
+	</script>
+<%end%>
+<% content_for :jquery do %>
+  //刷新页面后清空assetID
+  $("#stuff_asset_id").attr('value',0);
+  $("#story_many_assets").attr('value','');
+  //清空分类
+  $('#category_id_box').val('');
+<%end%>
+<div class="main">
+	<%=render 'admin/base/left_bar'%>
+    <div class="span10">
+      <!--Body content-->
+
+	  <%= render "admin/arts/tool_bar"%>
+
+	  <span class="blank10"></span>
+	  <%= render 'form' %>
+    </div>
+</div>
+

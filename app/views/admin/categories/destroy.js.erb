@@ -1,0 +1,5 @@
+<%if @success%>
+	$('#cate_<%=params[:id]%>').remove();
+<%else%>
+	alert('<%=@notice%>');
+<%end%>

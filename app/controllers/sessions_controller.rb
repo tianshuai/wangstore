@@ -11,9 +11,9 @@ class SessionsController < ApplicationController
       # Sign the user in and redirect to the user's show page.
       sign_in(user)
 	  #记录当前ip
-	  user.update_attribute(:ip, current_ip)
+	  user.update(ip: current_ip)
 	  #记录最后登录时间
-	  current_user.update_attribute(:last_time, Time.now.to_i)
+	  user.update(last_time: Time.now)
       redirect_back_or(user)
     else
       flash.now[:error] = '无效的用户名或密码' # Not quite right!

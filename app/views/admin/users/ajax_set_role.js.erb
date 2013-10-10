@@ -1,0 +1,7 @@
+<%if @success%>
+	<%params[:ids].split(',').each do |c|%>
+		$('#user_role_str_<%=c%>').text('<%=@user.role_str%>');
+	<%end%>
+<%else%>
+	alert('<%=@note%>');
+<%end%>

@@ -1,0 +1,21 @@
+<%=provide(:title, '编辑新闻')%>
+<% content_for :scripts do %>
+	<script style="text/javascript">
+
+	</script>
+<%end%>
+<% content_for :jquery do %>
+
+<%end%>
+<div class="main">
+	<%=render 'admin/base/left_bar'%>
+    <div class="span10">
+      <!--Body content-->
+
+	  <%= render "admin/block_spaces/tool_bar"%>
+
+	  <span class="blank10"></span>
+	  <%= render 'form' %>
+    </div>
+</div>
+

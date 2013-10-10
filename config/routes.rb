@@ -71,7 +71,7 @@ Wangstore::Application.routes.draw do
   match 'user/edit_pwd',			to: 'users#edit_pwd',			via: :get
   match 'user/update_pwd',			to: 'users#update_pwd',			via: :patch
   match 'user/ajax_avatar_form',	to: 'users#ajax_avatar_form',	via: :get
-  match 'user/ajax_validate_only',	to: 'users#ajax_validate_only',	via: :patch
+  match 'user/ajax_validate_only',	to: 'users#ajax_validate_only',	via: :post
   get 'user/find_pwd',				to: 'users#find_pwd'
   get 'user/send_mail',			to: 'users#send_mail'
   get 'user/go_mail',				to: 'users#go_mail'
@@ -87,5 +87,31 @@ Wangstore::Application.routes.draw do
   match '/signup',					to: 'users#new',				via: :get
   match '/signin',  				to: 'sessions#new',         	via: :get
   match '/signout', 				to: 'sessions#destroy',     	via: :delete
+
+
+  #后台管理
+  namespace :admin do
+	#后台首页
+	match '/home',				to: 'home#index',				via: :get
+
+    #用户
+    resources :users, only: [:index] do
+	  collection do
+		post :ajax_set_state
+		post :ajax_set_role
+	  end
+    end
+
+	#分类管理
+    resources :categories do
+	  collection do
+		post :ajax_set_state
+		post :destroy_more
+        get :article_list
+	  end
+    end
+ 
+  end
+
 	
 end
