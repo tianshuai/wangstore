@@ -20,7 +20,8 @@ Wangstore::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = false
+  #静态文件由前端服务器来处理(nginx)
+  config.serve_static_assets = true   #如果让前端服务器处理需要设置false
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -64,6 +65,7 @@ Wangstore::Application.configure do
   # config.assets.precompile += %w( search.js )
   # 排除 Compass 的 partials （文件名是下划线开头的，比如 _shared.css.sass） 
   #config.assets.precompile += [ Proc.new {|path| File.basename(path) =~ /^[^_].*\.\w+$/} ]
+  config.assets.precompile += %w( compress/custom.css.scss )
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
