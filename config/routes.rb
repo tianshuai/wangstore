@@ -108,6 +108,17 @@ Wangstore::Application.routes.draw do
 		post :ajax_set_state
 		post :destroy_more
         get :article_list
+		get :ajax_change_category
+	  end
+    end
+
+    #内容管理
+    resources :posts do
+	  collection do
+		post :ajax_set_state
+		post :destroy_more
+		post :ajax_set_publish
+		post :ajax_set_stick
 	  end
     end
  

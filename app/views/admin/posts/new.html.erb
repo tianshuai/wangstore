@@ -1,6 +1,6 @@
-<%=provide(:title, '发布新闻')%>
+<%=provide(:title, '发布文章')%>
 <% content_for :scripts do %>
-  <%= javascript_include_tag "kindeditor-4.1.7/kindeditor" %>
+  <%= javascript_include_tag "kindeditor-4.1.9/kindeditor-min" %>
 	<script style="text/javascript">
     //添加删除分类
     function add_and_drop_category()
@@ -26,26 +26,37 @@
         window.editor = K.create('#kind_editor', options)
       });
 
+
+	  //ajax通过父id显示子分类
+	  function ajax_change_category(pid)
+	  {
+		var url = "/admin/categories/ajax_change_category";
+	  	$.get(url, {pid: pid, type: 1});
+	  }
+
 	</script>
 <%end%>
 <% content_for :jquery do %>
-  //刷新页面后清空assetID
-  $("#editor_ids").attr('value','');
-  //清空分类
-  $('#category_id_box').val('');
+	var current_pid = $('#pid').val();
+	ajax_change_category(current_pid);
+
+	//通过选择父id改变子分类的值
+	$('#pid').change(function(){
+	  var pid = $(this).val();
+	  ajax_change_category(pid);
+	})
 <%end%>
-<div class="main">
-	<%=render 'admin/base/left_bar'%>
-    <div class="span10">
-      <!--Body content-->
 
+
+<div class="row">
+	<div class="col-md-2">
+		<%=render "admin/base/left_bar"%>
+	</div>
+	<div class="col-md-10">
 	  <%= render "admin/posts/tool_bar"%>
-
-	  <span class="blank10"></span>
+	  <span class="blank20"></span>
 	  <%= render 'form' %>
-    </div>
+	</div>
+  </div>
 </div>
-
-
-
 

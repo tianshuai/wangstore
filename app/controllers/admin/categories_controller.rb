@@ -113,6 +113,16 @@ class Admin::CategoriesController < Admin::BaseController
     end
   end
 
+  #ajax通过父id显示其下分类
+  def ajax_change_category
+	pid = params[:pid] || 0
+	type = params[:type] || 1
+	select_tags = Category.child_options(pid)
+	respond_to do |f|
+	  f.xml { render locals: { select_tags: select_tags}, layout: false}
+	end
+  end
+
 
   #私有方法
   private

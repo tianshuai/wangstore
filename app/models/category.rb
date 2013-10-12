@@ -1,5 +1,7 @@
 class Category < ActiveRecord::Base
 
+  ##关系
+  has_many    :posts
 
   ##常量
   #状态
@@ -16,10 +18,17 @@ class Category < ActiveRecord::Base
 	img: 2
   }
 
+  ##验证
+  validates_presence_of :name,                message: "请输入名称"
+  validates_presence_of :kind,                message: "请选择分类"
+  validates_numericality_of :order,           only_integer: true, message: "必须是整数"
+
   ##过滤
   scope :order_b,		-> { order("sort DESC") }
   #父分类
-  scope :one_level,		-> { where(pid: 0) }
+  scope :parent_level,	-> { where(pid: 0) }
+  #通过父类ID查看子类
+  scope :child_level,	lambda{ |id| where(pid: id) }
   #开启的
   scope :available,		-> { where(state: STATE[:ok]) }
   #关闭的
@@ -32,15 +41,19 @@ class Category < ActiveRecord::Base
   ##方法
   #父类级
   def self.parent_options(kind=1)
-	def_option = ['--父类--', 0]
 	case kind
 	when 1
-	  Category.one_level.article.available.collect{ |x| [x.name, x.id] }.unshift(def_option)
+	  self.parent_level.article.available.collect{ |x| [x.name, x.id] }
 	when 2
-	  Category.one_level.undefault.available.collect{ |x| [x.name, x.id] }.unshift(def_option)
+	  self.parent_level.undefault.available.collect{ |x| [x.name, x.id] }
 	else
-	  [ ['--父类--', 0] ]
+	  [ [] ]
 	end
+  end
+
+  #通过父类id查看子分类
+  def self.child_options(pid, kind=1)
+	self.available.child_level(pid).order_b.collect{ |x| [x.name, x.id] }
   end
 
   #类型说明

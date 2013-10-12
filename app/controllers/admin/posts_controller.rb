@@ -1,15 +1,15 @@
 # encoding: utf-8
-class Admin::PostsController < Admin::Common
+class Admin::PostsController < Admin::BaseController
 
   #左侧导航样式
-  before_filter do
-    @css_admin_news = true
+  before_action do
+    @css_admin_posts = true
   end
 
   #分类列表
   def index
     @css_admin_post_list = true
-    @posts = Post.news.order_b.recent.paginate(:page => params[:page], :per_page => 10)
+    @posts = Post.article.order_b.recent.paginate(:page => params[:page], :per_page => 10)
     render 'list'
   end
 
@@ -24,12 +24,21 @@ class Admin::PostsController < Admin::Common
   end
 
   def edit
-    @post = Post.find(params[:id].to_i)
+    @post = Post.find(params[:id])
+    respond_to do |format|
+	  if @post.present?
+		  p '22222222222'
+        format.html # edit.html.erb
+        format.json { render json: @post }
+	  else
+		  p '3333333333333333'
+        format.html { redirect_to admin_posts_path, notice: '内容不存在!'}
+	  end
+	end
   end
 
   def create
-    @post = Post.new(params[:post])
-	@post.user_id = current_user.id
+    @post = Post.new(params.require(:post).permit!)
     respond_to do |format|
       if @post.save
         #保存封面图
@@ -70,10 +79,10 @@ class Admin::PostsController < Admin::Common
 
 
   def update
-    @post = Post.find(params[:id].to_i)
+    @post = Post.find(params[:id])
 
     respond_to do |format|
-      if @post.update_attributes(params[:post])
+      if @post.update_attributes(params.require(:post).permit!)
         #保存封面图
         if params[:asset_id]
           #获得文件/格式
@@ -107,7 +116,7 @@ class Admin::PostsController < Admin::Common
 
 
   def destroy
-    @post = Post.find(params[:id].to_i)
+    @post = Post.find(params[:id])
 	if @post.present?
 	  @post.destroy
 	  @success = true
@@ -127,7 +136,7 @@ class Admin::PostsController < Admin::Common
   def destroy_more
 	arr = params[:ids]
 	arr.split(',').each do |id|
-      post = Post.find(id.to_i)
+      post = Post.find(id)
 	  if post.present?
 	    post.destroy
 	  end
@@ -141,7 +150,7 @@ class Admin::PostsController < Admin::Common
 
   #ajax 设置状态
   def ajax_set_state
-	@post = Post.find(params[:id].to_i)
+	@post = Post.find(params[:id])
 	if @post.present?
 	  @post.update_attribute(:state, params[:type])
 	  @success = true
@@ -158,7 +167,7 @@ class Admin::PostsController < Admin::Common
 
   #ajax 设置推荐
   def ajax_set_stick
-	@post = Post.find(params[:id].to_i)
+	@post = Post.find(params[:id])
 	if @post.present?
 	  @post.update_attribute(:stick, params[:type])
 	  @success = true
@@ -175,7 +184,7 @@ class Admin::PostsController < Admin::Common
 
   #ajax 设置发布
   def ajax_set_publish
-	@post = Post.find(params[:id].to_i)
+	@post = Post.find(params[:id])
 	if @post.present?
 	  @post.update_attribute(:publish, params[:type])
 	  @success = true
@@ -189,5 +198,6 @@ class Admin::PostsController < Admin::Common
 	  f.js { render :ajax_set_publish }
     end
   end
+
 
 end

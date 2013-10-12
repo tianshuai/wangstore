@@ -24,12 +24,14 @@ Wangstore::Application.configure do
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
+  config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
+  #false表示rails不会即时编译asset 
   config.assets.compile = false
 
   # Generate digests for assets URLs.
+  #生产环境中，上传图片显示（默认值为true） 
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
@@ -60,6 +62,8 @@ Wangstore::Application.configure do
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
+  # 排除 Compass 的 partials （文件名是下划线开头的，比如 _shared.css.sass） 
+  #config.assets.precompile += [ Proc.new {|path| File.basename(path) =~ /^[^_].*\.\w+$/} ]
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

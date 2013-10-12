@@ -21,7 +21,7 @@
 	</div>
 	<div class="form-group">
       <%= f.label :pid, '级别' %>
-	  <%= f.select :pid, Category.parent_options(1), :prompt=>"select a payment method", class: '' %> 
+	  <%= f.select :pid, Category.parent_options(1).unshift(['--父类--', 0]), :prompt=>"select a payment method", class: '' %> 
 	</div>
 
     <div class="form-group">

@@ -1,7 +1,9 @@
-<%=provide(:title, '新闻列表')%>
-<div class="main">
-	<%=render 'admin/base/left_bar'%>
-    <div class="span10">
+<%=provide(:title, '文章列表')%>
+<div class="row">
+	<div class="col-md-2">
+		<%=render "admin/base/left_bar"%>
+	</div>
+	<div class="col-md-10">
       <!--Body content-->
           <%= render "admin/posts/tool_bar"%>
           <span class="blank10"></span>
@@ -50,3 +52,4 @@
     </div>
   </div>
 </div>
+
