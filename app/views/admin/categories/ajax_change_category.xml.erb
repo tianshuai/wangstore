@@ -3,7 +3,7 @@
 	  <select id="ajax_child_category" name="post[category_id]" class="form-control mr-20" style="width:150px;float:left;">
 		<% if select_tags %>
 			<% select_tags.each do |t| %>
-				<option value="<%=t.last%>"><%=t.first%></option>
+				<option value="<%=t.last%>" <%= "selected='selected'" if t.last==cid %>><%=t.first%></option>
 			<%end%>
 		<%else%>
 			<option value="0">--请选择--</option>

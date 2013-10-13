@@ -19,7 +19,7 @@
 
 	<div class="form-group">
       <%= f.label :category_id, '分类', class: 'clearfix' %>
-	  <%= select_tag :pid, options_for_select(Category.parent_options(1),0), class: 'form-control mr-20', style: 'width: 100px; float:left;' %> 
+	  <%= select_tag :pid, options_for_select(Category.parent_options(1), pid), class: 'form-control mr-20', style: 'width: 100px; float:left;' %> 
 	  <select id="ajax_child_category" name="posts['category_id']" class="form-control mr-20" style="width:150px;float:left;"></select>
 	</div>
 

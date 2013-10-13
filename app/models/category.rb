@@ -21,7 +21,7 @@ class Category < ActiveRecord::Base
   ##验证
   validates_presence_of :name,                message: "请输入名称"
   validates_presence_of :kind,                message: "请选择分类"
-  validates_numericality_of :order,           only_integer: true, message: "必须是整数"
+  validates_numericality_of :sort,            only_integer: true, message: "必须是整数"
 
   ##过滤
   scope :order_b,		-> { order("sort DESC") }

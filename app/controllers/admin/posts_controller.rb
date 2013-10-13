@@ -16,9 +16,8 @@ class Admin::PostsController < Admin::BaseController
   #新的分类
   def new
     @post = Post.new
-
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @post }
     end
   end
@@ -27,11 +26,9 @@ class Admin::PostsController < Admin::BaseController
     @post = Post.find(params[:id])
     respond_to do |format|
 	  if @post.present?
-		  p '22222222222'
-        format.html # edit.html.erb
-        format.json { render json: @post }
+        format.html
+        #format.json { render json: @post }
 	  else
-		  p '3333333333333333'
         format.html { redirect_to admin_posts_path, notice: '内容不存在!'}
 	  end
 	end

@@ -5,8 +5,8 @@ class Post < ActiveRecord::Base
   belongs_to :category
 
   ##验证
-  validates_presence_of :title
-  validates :title,                               length: { minimum: 2, maximum: 50 }
+  validates_presence_of :title,					  message: '请输入标题'
+  validates :title,                               length: { minimum: 2, maximum: 50, message: '标题长度大于２小于５０' }
 
   validates :content,                             length: { maximum: 500000 }
   validates_presence_of :user_id,				  message: '请选择创建人'

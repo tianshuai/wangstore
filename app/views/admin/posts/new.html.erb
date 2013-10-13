@@ -28,22 +28,22 @@
 
 
 	  //ajax通过父id显示子分类
-	  function ajax_change_category(pid)
+	  function ajax_change_category(pid,cid)
 	  {
 		var url = "/admin/categories/ajax_change_category";
-	  	$.get(url, {pid: pid, type: 1});
+	  	$.get(url, {pid: pid, cid: cid, type: 1});
 	  }
 
 	</script>
 <%end%>
 <% content_for :jquery do %>
 	var current_pid = $('#pid').val();
-	ajax_change_category(current_pid);
+	ajax_change_category(current_pid, 0);
 
 	//通过选择父id改变子分类的值
 	$('#pid').change(function(){
 	  var pid = $(this).val();
-	  ajax_change_category(pid);
+	  ajax_change_category(pid, 0);
 	})
 <%end%>
 
@@ -55,7 +55,7 @@
 	<div class="col-md-10">
 	  <%= render "admin/posts/tool_bar"%>
 	  <span class="blank20"></span>
-	  <%= render 'form' %>
+	  <%= render 'form', { pid: 0 } %>
 	</div>
   </div>
 </div>
