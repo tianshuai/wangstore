@@ -12,6 +12,8 @@ class CreateUsers < ActiveRecord::Migration
 	  t.datetime :last_time
 	  t.string :remember_token
 	  t.string :password_digest
+	  t.string :avatar_path
+	  t.string :avatar_format
 
       t.timestamps
     end
@@ -22,5 +24,6 @@ class CreateUsers < ActiveRecord::Migration
     add_index :users, 	:remember_token
     add_index :users, 	:last_time
 	add_index :users,	:kind
+	add_index :users,	:avatar_path
   end
 end

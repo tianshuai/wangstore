@@ -1,0 +1,12 @@
+<taconite>
+  <eval>
+      <% if @success %>
+        //alert('添加成功!');
+		var obj = $('#asset_<%=@asset.id%>');
+		obj.find('.asset_desc').html('<%=@asset.desc%>').show();
+		obj.find('.desc_box').slideUp();
+      <%else%>
+        alert('<%=@note%>');
+      <%end%>
+  </eval>
+</taconite>

@@ -2,8 +2,8 @@
 module PublicImgHelper
 
   #图片对象
-  def asset_obj(asset_id)
-	Mongoid::GridFS.get(asset_id)
+  def asset_obj(path)
+	Mongoid::GridFS.get(path)
   end
  
   #删除mongodb附件

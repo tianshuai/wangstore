@@ -1,0 +1,21 @@
+<taconite>
+  <% if @success %>
+	  	<remove select="#asset_<%=params[:id]%>" />
+  <%end%>
+  <eval>
+      <% if @success %>
+        //alert('删除成功!');
+		<% if @type == 1 %>
+			var current_id = "<%=params[:id]%>";
+			var asset_id = $("#asset_id").val();
+			if (current_id == asset_id)
+			{
+			  $("#asset_id").attr('value',0);
+			}
+			muc.remove_asset_id(<%=params[:id].to_i%>,'#art_img_ids');
+		<%end%>
+      <%else%>
+        alert('删除失败!');
+      <%end%>
+  </eval>
+</taconite>

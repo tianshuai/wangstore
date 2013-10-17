@@ -68,3 +68,6 @@ end
 
 # 加密算法
 gem 'bcrypt-ruby', '3.0.1'
+
+#图片读取存储
+gem 'mini_magick'

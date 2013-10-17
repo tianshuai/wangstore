@@ -18,7 +18,7 @@
         uploadJson: '/upload/editor?item_id='+item_id+'&type='+type,
         //newlineTag: 'p',
         afterUpload : function(url,data) {
-          //把编辑器上传的图片ｉｄ传给editor_ids,用于关联该新闻对象
+          //把编辑器上传的图片ｉｄ传给editor_ids,用于关联该对象
           muc.record_asset_ids(data.asset_id,'#editor_ids');
         }
       };

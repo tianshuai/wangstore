@@ -60,6 +60,14 @@ Wangstore::Application.routes.draw do
   get 'about',       			to: 'home#about'
   get 'help',        			to: 'home#help'
   get 'choose',     			to: 'home#choose'
+
+  #上传路径
+  post 'upload/editor',			to:	'upload#editor'
+
+  #附件处理
+  get "asset/*path" => "assets#serve"
+  delete "asset/destroy" => "assets#destroy"
+  post "asset/ajax_save_desc" => "assets#ajax_save_desc"
   
 
   #用户路由
