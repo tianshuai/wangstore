@@ -15,16 +15,17 @@ ActiveRecord::Schema.define(version: 20131014080729) do
 
   create_table "assets", force: true do |t|
     t.string   "name"
-    t.string   "o_name",                      null: false
     t.string   "description"
-    t.string   "path"
+    t.string   "source_path"
+    t.string   "file_path",                   null: false
+    t.string   "file_name",                   null: false
     t.integer  "size",            default: 0, null: false
     t.integer  "state",           default: 1, null: false
     t.integer  "sort",            default: 0, null: false
     t.integer  "kind",            default: 1, null: false
     t.integer  "width",           default: 0, null: false
     t.integer  "height",          default: 0, null: false
-    t.string   "format_type"
+    t.string   "format_type",                 null: false
     t.integer  "relateable_id"
     t.string   "relateable_type"
     t.datetime "created_at"
@@ -33,7 +34,6 @@ ActiveRecord::Schema.define(version: 20131014080729) do
 
   add_index "assets", ["kind"], name: "index_assets_on_kind", using: :btree
   add_index "assets", ["name"], name: "index_assets_on_name", using: :btree
-  add_index "assets", ["path"], name: "index_assets_on_path", using: :btree
   add_index "assets", ["relateable_id"], name: "index_assets_on_relateable_id", using: :btree
   add_index "assets", ["relateable_type"], name: "index_assets_on_relateable_type", using: :btree
   add_index "assets", ["size"], name: "index_assets_on_size", using: :btree

@@ -2,7 +2,7 @@
 <% content_for :scripts do %>
     <%= javascript_include_tag "kindeditor-4.1.9/kindeditor-min" %>
     <script style="text/javascript">
-      var item_id = <%= params[:id] || '' %>;
+      var item_id = <%= params[:id] || 0 %>;
       var type = 'Post';
       var options = {
         width: '800px',

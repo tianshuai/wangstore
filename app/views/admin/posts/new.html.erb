@@ -12,20 +12,20 @@
     }
       var item_id = '';
       var type = 'Post';
+	  var user_id = <%=current_user.id%>;
       var options = {
         width: '800px',
         height: '500px',
-        uploadJson: '/upload/editor?item_id='+item_id+'&type='+type,
+        uploadJson: '/upload/editor?item_id='+item_id+'&type='+type+'&user_id='+user_id,
         //newlineTag: 'p',
         afterUpload : function(url,data) {
           //把编辑器上传的图片ｉｄ传给editor_ids,用于关联该对象
-          muc.record_asset_ids(data.asset_id,'#editor_ids');
+          tian.record_asset_ids(data.asset_id,'#editor_ids');
         }
       };
       KindEditor.ready(function(K) {
         window.editor = K.create('#kind_editor', options)
       });
-
 
 	  //ajax通过父id显示子分类
 	  function ajax_change_category(pid,cid)

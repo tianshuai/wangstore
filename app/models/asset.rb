@@ -16,4 +16,11 @@ class Asset < ActiveRecord::Base
 	ok: 1
   }
 
+
+  ## 方法
+  #图片路径
+  def url
+	File.join(self.file_path, self.file_name)
+  end
+
 end

@@ -16,3 +16,4 @@
 /tmp
 source
 *.swp
+/public/upload/*

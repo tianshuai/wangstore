@@ -7,6 +7,10 @@ module ImageUnit
     #type::1作品图片,／２.编辑器图片；３.栏目块图片
     def self.save_asset(file,type,options={})
 
+	  # 初始化参数
+	  user_id = options[:user_id] || 0
+	  o_filename = options[:filename] || ''
+
 	  image_io= open(file)
 
       #用minimagick读取文件
@@ -37,92 +41,52 @@ module ImageUnit
 
 	  # 获取路径
 	  path_root = CONF['asset_path']
-	  path_s = File.join(CONF['image_editor_format']['path'], Time.now.year.to_s, Time.now.month.to_s)
+	  date_dir = Time.now.year.to_s + ( Time.now.month > 6 ? 'b' : 'a' )
+	  path_s = File.join(CONF['image_editor_format']['path'], date_dir)
 	  path = File.join(path_root, path_s )
 	  #如果目录不存在则创建
 	  Mf::mkdirs(path)
 	  #创建缩略图文件夹
 	  if(!File.directory?(File.join(path, 'o')))
-		Dir.mkdir(File.join(path, 'o'))
-		Dir.mkdir(File.join(path, 'b'))
-		Dir.mkdir(File.join(path, 'm'))
-		Dir.mkdir(File.join(path, 's'))
+		#Dir.mkdir(File.join(path, 'o'))
+		#Dir.mkdir(File.join(path, 'b'))
+		#Dir.mkdir(File.join(path, 'm'))
+		#Dir.mkdir(File.join(path, 's'))
 	  end
-      #原图
-		p '111111111111112'
-	  p image_mini[:format]
 
-	  grid_o = image_mini.write(File.join(path, 'aaa.jpg'))
-      p grid_o
-      result[:file_o_width]  = image_mini[:width]
-      result[:file_o_height]  = image_mini[:height]
+	  # 生成文件名 
+	  n_filename = Mf::g_filename( (user_id.to_s + o_filename + Time.now.to_i.to_s), format.downcase )
 
-      #大图
-      resize_b = resize['b'] || 780
-      image_mini.combine_options do |img|
-        img.resize "#{resize_b}x>"
-        img.quality "85"
-      end
-      grid_b = grid.put(image_mini.path)
-      result[:file_b_width]  = image_mini[:width]
-      result[:file_b_height]  = image_mini[:height]
 
-      #中图
-      resize_m = resize['m'] || [180,120]
-      if (image_mini[:width]-50)<=image_mini[:height]
+	  case type
+	  when 1
+		
+	  when 2
+        #大图
+        resize_b = resize['b'] || 780
         image_mini.combine_options do |img|
-          img.resize "#{resize_m[0]}x"
-          img.quality "100"
-          img.gravity "center"
-          img.crop  "#{resize_m[0]}x#{resize_m[1]}+0+0"
+          img.resize "#{resize_b}x>"
+          img.quality "85"
         end
-      else
-        image_mini.combine_options do |img|
-          img.resize "x#{resize_m[1]}"
-          img.quality "100"
-          img.gravity "center"
-          img.crop  "#{resize_m[0]}x#{resize_m[1]}+0+0"
-        end		  
-      end
-      grid_m = grid.put(image_mini.path)
-      result[:file_m_id]  = grid_m.id
-      result[:file_m_width]  = image_mini[:width]
-      result[:file_m_height]  = image_mini[:height]
 
-      #小图
-      # 生产小尺寸缩略图(先缩后裁形成方形图)
-      resize_s = resize['s'] || [50,50]
-      if image_mini[:width]<=image_mini[:height]
-        image_mini.combine_options do |img|
-          img.resize "#{resize_s[0]}x"
-          img.quality "100"
-          img.gravity "center"
-          img.crop  "#{resize_s[0]}x#{resize_s[1]}+0+0"
-        end
-      else
-        image_mini.combine_options do |img|
-          img.resize "x#{resize_s[1]}"
-          img.quality "100"
-          img.gravity "center"
-          img.crop  "#{resize_s[0]}x#{resize_s[1]}+0+0"
-        end		  
-      end
+        result[:width]  = image_mini[:width]
+        result[:height]  = image_mini[:height]
+		result[:file_name] = n_filename
+		result[:file_path] = path_s
+        # 生成文件
+	    file_path = image_mini.write(File.join(path, n_filename))
+	  end
 
-      grid_s = grid.put(image_mini.path)
-      result[:file_s_id] = grid_s.id
-      result[:file_s_width] = image_mini[:width]
-      result[:file_s_height] = image_mini[:height]
-
-      if grid_o.present? and grid_b.present? and grid_m.present? and grid_s.present?
+	  # 判断文件是否存在
+	  absolute_path = File.join(Rails.root, path, n_filename)
+      if File.exist?( absolute_path )
         result[:result] = true
         return  result
-
       else
-        return  { message: 'failr', reslut: false }
+        return  { message: '创建失败!', result: false }
       end
 
     end
-
 
 	# 保存头像
 	def self.save_avatar(file, options={})
@@ -224,7 +188,12 @@ module ImageUnit
 	  end
 	  return true
 	end
-  end
 
+    #生成文件名
+    def self.g_filename( filename , ext )
+	  "#{Digest::SHA1.hexdigest(filename)}.#{ext}"
+    end
+
+  end
 
 end

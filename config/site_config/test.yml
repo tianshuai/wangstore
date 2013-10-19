@@ -4,17 +4,16 @@ domain_base: http://127.0.0.1:3000
 
 domain_image: http://127.0.0.1:3000/asset
 
-
 #设置图片支持的格式
 verify_img_type: ["JPG","JPEG","PJPEG","PNG","X-PNG","GIF"]
 
 #附件目录
-asset_path: '/data/wangstore_assets/'
+asset_path: 'public/'
 
 #作品图规格
 image_art_format:
   #图片绝对路径
-  path: 'images/art/'
+  path: 'upload/images/art/'
   max_size: 5
   min_w_h: [180,120]
   b: 780
@@ -24,7 +23,7 @@ image_art_format:
 #编辑器图规格
 image_editor_format:
   #图片绝对路径
-  path: 'images/editor/'
+  path: 'upload/images/editor/'
   max_size: 5
   min_w_h: [50,50]
   b: 780
@@ -34,7 +33,7 @@ image_editor_format:
 #头像规格(备用)
 image_avatar_format:
   #图片绝对路径
-  path: 'images/avator/'
+  path: 'upload/images/avator/'
   max_size: 5
   min_w_h: [180, 180]
   o: 180

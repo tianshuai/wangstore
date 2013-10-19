@@ -11,23 +11,23 @@ class UploadController < ApplicationController
   	file = params[:imgFile]
 	file_temp = file.tempfile
 	file_name = file.original_filename
-p '3333333333333333'
-p env["PATH_INFO"]
+	user_id = params[:user_id].to_i
 
 	#上传
-	result = ImageUnit::Upload.save_asset(file_temp,2)
+	result = ImageUnit::Upload.save_asset(file_temp,2, { user_id: user_id, filename: file_name })
 	if result[:result]
 	  item_id = params[:item_id] || 0
-      result[:file_name] = file_name
+      result[:name] = file_name
       result[:relateable_id] = item_id
       result[:relateable_type] = params[:type]
+	  result[:kind] = params[:kind] || 1
       hash = collect_asset(result)
 	  asset = Asset.new(hash)
 	  if asset.save
 		results = {
 		  error: 0,
           #编辑器存生成的大图
-		  url: asset_path(asset.thumb_big),
+		  url: File.join(domain_base, asset.url),
 		  asset_id: asset.id
 		}
 	  else
@@ -36,14 +36,12 @@ p env["PATH_INFO"]
 		  message: '上传失败!'
 		}
 	  end
-
 	else
 	  results = {
 	    error: 1,
 		message: result[:message]
 	  }
 	end
-
 	render json: results.to_json
   end
 
