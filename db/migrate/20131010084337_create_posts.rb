@@ -12,7 +12,7 @@ class CreatePosts < ActiveRecord::Migration
 	  t.integer :view_count,	null: false, default: 0
 	  t.integer :stick,			null: false, default: 0
 	  t.integer :sort,			null: false, default: 0
-	  t.integer :asset_id
+	  t.integer :asset_id,		null: false, default: 0
 
       t.timestamps
     end

@@ -24,6 +24,5 @@ class CreateUsers < ActiveRecord::Migration
     add_index :users, 	:remember_token
     add_index :users, 	:last_time
 	add_index :users,	:kind
-	add_index :users,	:avatar_path
   end
 end
