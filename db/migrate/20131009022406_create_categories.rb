@@ -9,6 +9,7 @@ class CreateCategories < ActiveRecord::Migration
 	  t.integer :pid,		null: false, default: 0
 	  t.integer :sort,		null: false, default: 0
 	  t.integer :user_id,	null: false
+	  t.integer :count,		null: false, default: 0
 
       t.timestamps
     end

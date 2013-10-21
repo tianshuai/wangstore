@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20131014080729) do
     t.integer  "view_count",  default: 0, null: false
     t.integer  "stick",       default: 0, null: false
     t.integer  "sort",        default: 0, null: false
-    t.integer  "asset_id"
+    t.integer  "asset_id",    default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(version: 20131014080729) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["avatar_path"], name: "index_users_on_avatar_path", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["kind"], name: "index_users_on_kind", using: :btree
   add_index "users", ["last_time"], name: "index_users_on_last_time", using: :btree

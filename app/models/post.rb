@@ -2,10 +2,8 @@ class Post < ActiveRecord::Base
 
   ##关系
   belongs_to :user
-  belongs_to :category
-
-  ##关系
   has_many :assets,         dependent: :destroy,  as: :relateable
+  belongs_to :category
 
   ##验证
   validates_presence_of :title,					  message: '请输入标题'
