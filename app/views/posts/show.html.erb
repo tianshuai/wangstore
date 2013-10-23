@@ -1,0 +1,27 @@
+<% provide(:title, @post.title) %>
+
+<div class="row">
+	<div>
+		<%= render partial: 'path', locals: { post: @post, type: 1 } %>
+	</div>
+	<div class="col-md-9">
+		<div>
+			<h1><%=@post.title%></h1>
+			<hr />
+			<div>
+				<span>作者: <%= @post.user.name %></span><br />
+				<span>分类: <%= @post.category.name %></span><br />
+				<span>时间: <%= @post.created_at %></span><br />
+				<span>浏览量: <%= @post.view_count %></span><br />
+			</div>
+			<span class="blank10"></span>
+			<div>
+				<%= raw @post.content %>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<%=render "posts/right_bar"%>
+
+	</div>
+</div>

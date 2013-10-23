@@ -2,13 +2,13 @@ class CreateCategories < ActiveRecord::Migration
   def change
     create_table :categories do |t|
       t.string 	:name,		null: false
-	  t.text 	:description
+	  t.string 	:description
+	  t.integer :user_id,	null: false
       t.integer :kind,		null: false, default: 1
       t.integer :state,		null: false, default: 1
       t.integer :stick,		null: false, default: 0
 	  t.integer :pid,		null: false, default: 0
 	  t.integer :sort,		null: false, default: 0
-	  t.integer :user_id,	null: false
 	  t.integer :count,		null: false, default: 0
 
       t.timestamps

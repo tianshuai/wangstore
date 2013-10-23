@@ -8,7 +8,7 @@ class Admin::PostsController < Admin::BaseController
 
   #分类列表
   def index
-    @css_admin_post_list = true
+    @css_post_list = true
     @posts = Post.article.order_b.recent.paginate(:page => params[:page], :per_page => 10)
     render 'list'
   end

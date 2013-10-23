@@ -24,6 +24,8 @@ class Category < ActiveRecord::Base
   validates_numericality_of :sort,            only_integer: true, message: "必须是整数"
 
   ##过滤
+  #排序
+  scope :recent,      	-> { order("id DESC") }
   scope :order_b,		-> { order("sort DESC") }
   #父分类
   scope :parent_level,	-> { where(pid: 0) }

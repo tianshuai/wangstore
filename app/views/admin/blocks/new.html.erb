@@ -1,0 +1,36 @@
+<%=provide(:title, '新建块')%>
+<% content_for :scripts do %>
+  <%= javascript_include_tag "kindeditor-4.1.9/kindeditor-min" %>
+	<script style="text/javascript">
+      var item_id = '';
+      var type = 'Block';
+	  var user_id = <%=current_user.id%>;
+      var options = {
+        width: '800px',
+        height: '500px',
+        uploadJson: '/upload/editor?item_id='+item_id+'&type='+type+'&user_id='+user_id,
+        //newlineTag: 'p',
+        afterUpload : function(url,data) {
+          //把编辑器上传的图片ｉｄ传给editor_ids,用于关联该对象
+          sj.record_asset_ids(data.asset_id,'#editor_ids');
+        }
+      };
+      KindEditor.ready(function(K) {
+        window.editor = K.create('#kind_editor', options)
+      });
+
+	</script>
+<%end%>
+
+<div class="row">
+	<div class="col-md-2">
+		<%=render "admin/base/left_bar"%>
+	</div>
+	<div class="col-md-10">
+	  <%= render "admin/posts/tool_bar"%>
+	  <span class="blank20"></span>
+	  <%= render 'form' %>
+	</div>
+  </div>
+</div>
+

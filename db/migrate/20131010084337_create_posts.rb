@@ -12,7 +12,8 @@ class CreatePosts < ActiveRecord::Migration
 	  t.integer :view_count,	null: false, default: 0
 	  t.integer :stick,			null: false, default: 0
 	  t.integer :sort,			null: false, default: 0
-	  t.integer :asset_id,		null: false, default: 0
+	  t.integer :cover_id,		null: false, default: 0
+	  t.integer :deleted,		null: false, default: 0
 
       t.timestamps
     end
@@ -22,6 +23,6 @@ class CreatePosts < ActiveRecord::Migration
 	add_index :posts, :view_count
 	add_index :posts, :sort
 	add_index :posts, :category_id
+	add_index :posts, :cover_id
   end
 end
-

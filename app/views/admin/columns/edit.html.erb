@@ -1,0 +1,19 @@
+<%=provide(:title, '编辑栏目')%>
+<% content_for :scripts do %>
+    <script style="text/javascript">
+
+
+	</script>
+<%end%>
+
+<div class="row">
+	<div class="col-md-2">
+		<%=render "admin/base/left_bar"%>
+	</div>
+	<div class="col-md-10">
+	  <%= render "admin/columns/tool_bar"%>
+	  <span class="blank20"></span>
+	  <%= render 'form' %>
+	</div>
+  </div>
+</div>

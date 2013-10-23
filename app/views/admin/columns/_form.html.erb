@@ -1,0 +1,56 @@
+
+  <%= form_for([:admin,@column], html: { id: "", role: 'form', multipart: true }) do |f| %>
+	  <% if @column.errors.any? %>
+		<div id="error_explanation">
+		  <h2><%= @column.errors.count %>处错误提示: </h2>
+
+		  <ul>
+		  <% @column.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		  <% end %>
+		  </ul>
+		</div>
+	  <% end %>
+	<%= f.hidden_field :user_id, value: current_user.id %>
+	<div class="form-group">
+      <%= f.label :column_space_id, '所属栏目位', class: 'clearfix' %>
+	  <%= f.select :column_space_id, ColumnSpace.select_options, class: 'form-control' %> 
+	</div>
+    <div class="form-group">
+      <%= f.label :title, '名称' %>
+  	  <%= f.text_field :title, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address, '地址' %>
+  	  <%= f.text_field :address, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+	  <label>url地址：</label>
+	  <input type="file" name="asset_id" />
+    </div>
+
+	<span class="blank10 clearfix"></span>
+    <div class="form-group">
+  	  <%= f.label :content, '描述' %>
+  	  <%= f.text_area :content, class: 'form-control' %>
+	</div>
+    <div class="form-group">
+      <%= f.label :sort, '排序' %>
+  	  <%= f.number_field :sort, class: 'form-control' %>
+    </div>
+	<div class="form-group">
+	  <%= f.label :kind, ' 类型:' %>
+	  <%= f.radio_button :kind, 1 %>图片&nbsp;
+	  <%= f.radio_button :kind, 2 %>文字&nbsp;
+	</div>
+	<div class="form-group">
+	  <%= f.label :state, ' 状态:' %>
+	  <%= f.radio_button :state, 0 %>关闭&nbsp;
+	  <%= f.radio_button :state, 1 %>发布&nbsp;
+	</div>
+
+  <div class="actions">
+    <%= f.submit '保存' %>
+	<%=link_to '返回', admin_columns_path %>
+  </div>
+  <% end %>

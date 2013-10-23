@@ -1,0 +1,19 @@
+<% provide(:title, '首页') %>
+
+<div class="row">
+	<div class="col-md-10">
+		<%#=render "admin/base/left_bar"%>
+		<div class="post_list">
+			<ul>
+			<% @posts.each do |d| %>
+				<li>
+					<span><%= link_to truncate(d.title, length: 25), post_path(d) %></span>
+				</li>
+			<%end%>
+		</ul>
+		</div>
+	</div>
+	<div class="col-md-2">
+		<%=render "posts/right_bar"%>
+	</div>
+</div>

@@ -9,8 +9,8 @@ class Asset < ActiveRecord::Base
   ##常量
   #类型
   KIND = {
-    img: 1,
-	word: 2,
+    editor: 1,
+	cover: 2,
 	pdf: 3,
 	excl: 4,
 	other: 10
@@ -25,8 +25,8 @@ class Asset < ActiveRecord::Base
 
   ## 方法
   #图片路径
-  def url
-	File.join(self.file_path, self.file_name)
+  def url(size = 'o')
+	File.join(self.file_path, size, self.file_name)
   end
 
 
@@ -35,8 +35,11 @@ class Asset < ActiveRecord::Base
 
   # 删除时同时删除源文件
   def delete_for_file
-	path = File.join( Rails.root, CONF['asset_path'], self.url )
-	File.delete( path )
+	['o','b','m','s'].each do |i|
+	  path = File.join( Rails.root, CONF['asset_path'], self.url(i) )
+	  File.delete( path ) if File.exist?( path )
+	end
+
   end
 
 end

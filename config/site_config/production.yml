@@ -17,7 +17,7 @@ image_art_format:
   path: 'upload/images/art/'
   max_size: 5
   min_w_h: [180,120]
-  b: 780
+  b: 800
   m: [180,120]
   s: [50,50]
 
@@ -27,7 +27,7 @@ image_editor_format:
   path: 'upload/images/editor/'
   max_size: 5
   min_w_h: [50,50]
-  b: 780
+  b: 800
   m: [180,120]
   s: [50,50]
 

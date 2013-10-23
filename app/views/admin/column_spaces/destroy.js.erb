@@ -1,0 +1,5 @@
+<%if @success%>
+	$('#column_space_<%=params[:id]%>').remove();
+<%else%>
+	alert('<%=@notice%>');
+<%end%>

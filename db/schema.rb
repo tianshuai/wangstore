@@ -41,13 +41,14 @@ ActiveRecord::Schema.define(version: 20131014080729) do
 
   create_table "categories", force: true do |t|
     t.string   "name",                    null: false
-    t.text     "description"
+    t.string   "description"
+    t.integer  "user_id",                 null: false
     t.integer  "kind",        default: 1, null: false
     t.integer  "state",       default: 1, null: false
     t.integer  "stick",       default: 0, null: false
     t.integer  "pid",         default: 0, null: false
     t.integer  "sort",        default: 0, null: false
-    t.integer  "user_id",                 null: false
+    t.integer  "count",       default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -70,12 +71,14 @@ ActiveRecord::Schema.define(version: 20131014080729) do
     t.integer  "view_count",  default: 0, null: false
     t.integer  "stick",       default: 0, null: false
     t.integer  "sort",        default: 0, null: false
-    t.integer  "asset_id",    default: 0, null: false
+    t.integer  "cover_id",    default: 0, null: false
+    t.integer  "deleted",     default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "posts", ["category_id"], name: "index_posts_on_category_id", using: :btree
+  add_index "posts", ["cover_id"], name: "index_posts_on_cover_id", using: :btree
   add_index "posts", ["kind"], name: "index_posts_on_kind", using: :btree
   add_index "posts", ["sort"], name: "index_posts_on_sort", using: :btree
   add_index "posts", ["title"], name: "index_posts_on_title", using: :btree
@@ -100,6 +103,7 @@ ActiveRecord::Schema.define(version: 20131014080729) do
     t.datetime "updated_at"
   end
 
+  add_index "users", ["avatar_path"], name: "index_users_on_avatar_path", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["kind"], name: "index_users_on_kind", using: :btree
   add_index "users", ["last_time"], name: "index_users_on_last_time", using: :btree

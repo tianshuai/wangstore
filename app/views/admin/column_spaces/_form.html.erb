@@ -1,0 +1,55 @@
+
+  <%= form_for([:admin,@column_space], html: { id: "", role: 'form' }) do |f| %>
+	  <% if @column_space.errors.any? %>
+		<div id="error_explanation">
+		  <h2><%= @column_space.errors.count %>处错误提示: </h2>
+
+		  <ul>
+		  <% @column_space.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		  <% end %>
+		  </ul>
+		</div>
+	  <% end %>
+	<%= f.hidden_field :user_id, value: current_user.id %>
+    <div class="form-group">
+      <%= f.label :mark, '标识(a_z)' %>
+	  <% if @column_space.new_record? %>
+  	  	<%= f.text_field :mark, class: 'form-control' %>
+	  <%else%>
+  	  	<%= f.text_field :mark, class: 'form-control', disabled: true %>
+  	  <%end%>
+    </div>
+    <div class="form-group">
+      <%= f.label :name, '位置说明' %>
+  	  <%= f.text_field :name, class: 'form-control' %>
+    </div>
+
+	<span class="blank10 clearfix"></span>
+    <div class="form-group">
+  	  <%= f.label :content, '描述' %>
+  	  <%= f.text_area :content, class: 'form-control' %>
+	</div>
+    <div class="form-group">
+      <%= f.label :width, '宽' %>
+  	  <%= f.number_field :width, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :height, '高' %>
+  	  <%= f.number_field :height, class: 'form-control' %>
+    </div>
+	<div class="form-group">
+	  <%= f.label :kind, ' 类型:' %>
+	  <%= f.radio_button :kind, 1 %>默认&nbsp;
+	  <%= f.radio_button :kind, 2 %>未定义&nbsp;
+	</div>
+	<div class="form-group">
+	  <%= f.label :state, ' 状态:' %>
+	  <%= f.radio_button :state, 0 %>关闭&nbsp;
+	  <%= f.radio_button :state, 1 %>开启&nbsp;
+	</div>
+  <div class="actions">
+    <%= f.submit '保存' %>
+	<%=link_to '返回', admin_column_spaces_path %>
+  </div>
+  <% end %>

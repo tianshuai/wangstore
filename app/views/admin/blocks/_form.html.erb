@@ -1,0 +1,42 @@
+  <%= form_for([:admin,@block], html: { id: "", role: 'form', multipart: true }) do |f| %>
+	  <% if @block.errors.any? %>
+		<div id="error_explanation">
+		  <h2><%= @block.errors.count %>处错误提示: </h2>
+
+		  <ul>
+		  <% @block.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		  <% end %>
+		  </ul>
+		</div>
+	  <% end %>
+	<%= f.hidden_field :user_id, value: current_user.id %>
+	<input type="hidden" name="asset_ids" id="editor_ids" />
+    <div class="form-group">
+      <%= f.label :mark, '标识(a_z)' %>
+	  <% if @block.new_record? %>
+  	  	<%= f.text_field :mark, class: 'form-control' %>
+	  <%else%>
+  	  	<%= f.text_field :mark, class: 'form-control', disabled: true %>
+  	  <%end%>
+    </div>
+    <div class="form-group">
+      <%= f.label :title, '说明' %>
+  	  <%= f.text_field :title, class: 'form-control' %>
+    </div>
+
+	<span class="blank10 clearfix"></span>
+    <div class="form-group">
+  	  <%= f.label :content, '内容' %>
+  	  <%= f.text_area :content, id: 'kind_editor', class: 'form-control' %>
+	</div>
+	<div class="form-group">
+	  <%= f.label :kind, ' 类型:' %>
+	  <%= f.radio_button :kind, 1 %>默认 &nbsp;
+	  <%= f.radio_button :kind, 2 %>未定义 &nbsp;
+	</div>
+  <div class="actions">
+    <%= f.submit '保存' %>
+	<%=link_to '返回', admin_blocks_path %>
+  </div>
+  <% end %>

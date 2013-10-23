@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     #admin
     admin: 7,
     #system
-    system: 8
+    system: 9
 
   }
   #状态

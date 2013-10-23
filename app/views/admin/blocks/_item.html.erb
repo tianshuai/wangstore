@@ -1,0 +1,13 @@
+<tr id="block_<%=b.id%>" class="user_unaudited">
+    <td><label><%=check_box_tag "content[ids][]", b.id %></label></td>
+    <td><%=b.id%></td>
+	<td><%= b.mark %></td>
+	<td><%= truncate(b.title, length: 12) %></td>
+	<td><%= b.kind %></td>
+	<td><%=b.user.name if b.user.present?%></td>
+	<td><%=b.created_at.strftime("%y.%m.%d")%></td>
+  <td>
+	<%=link_to "编辑", edit_admin_block_path(b)%>
+    <%=link_to "删除", { action: 'destroy', id: b.id }, data: { confirm: "确认执行此操作?" }, remote: true, method: :delete %>
+  </td>
+</tr>

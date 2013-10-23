@@ -1,0 +1,13 @@
+<div class="top_tools clearfix">
+  <%=link_to '全部',admin_blocks_path, class: "btn-medium mr-5 fl #{css_active?(@css_block_list)}"%>
+
+  <%form_tag '',:class=>"form-box fr",:method=>:get do%>
+    <p align="right" class="fl mr-10">
+      <%=text_field_tag :search,:class=>"t-inp small-inp"%>
+    <div class="search_select fl mr-10">
+      <%=select_tag :type ,:options=>[['=请选择条件=',nil],['按ID','id'],['按用户ID','user_id']]%>
+    </div>
+    <%=submit_tag "搜索",:class=>"btn-medium btn-mt0 fl"%>
+  </p>
+<% end %>
+</div>

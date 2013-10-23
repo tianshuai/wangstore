@@ -1,0 +1,21 @@
+<tr id="column_space_<%=b.id%>" class="user_unaudited">
+    <td><label><%=check_box_tag "content[ids][]", b.id %></label></td>
+    <td><%=b.id%></td>
+	<td><%= b.mark %></td>
+	<td><%= truncate(b.name, length: 12) %></td>
+	<td><%=b.user.name if b.user.present?%></td>
+	<td><%= b.kind %></td>
+    <td class="show_state_<%=b.id%>"><%=b.state==0 ? '关闭' : '启用'%></td>
+	<td><%=b.created_at.strftime("%y.%m.%d")%></td>
+  <td>
+	<span class="btn_state_<%=b.id%>">
+      <% if b.state==0 %>
+		<%=link_to "启用" , { action: 'ajax_set_state', id: b.id, type: 1 }, remote: true, method: :post %> |
+      <%else%>
+        <%=link_to "禁用",{ action: 'ajax_set_state', id: b.id, type: 0 }, remote: true, method: :post%> |
+      <%end%>
+	</span>
+	<%=link_to "编辑", edit_admin_column_space_path(b)%>
+    <%=link_to "删除", { action: 'destroy', id: b.id }, data: { confirm: "确认执行此操作?" }, remote: true, method: :delete %>
+  </td>
+</tr>
