@@ -1,7 +1,7 @@
 <tr id="post_<%=b.id%>" class="user_unaudited">
     <td><label><%=check_box_tag "content[ids][]", b.id %></label></td>
     <td><%=b.id%></td>
-	<td><%= link_to truncate(b.title, length: 10), b.view_url, title: b.title, target: '_blank' %></td>
+	<td><%= link_to truncate(b.title, length: 10), post_path(b), title: b.title, target: '_blank' %></td>
     <td>
 
         <span>无</span>

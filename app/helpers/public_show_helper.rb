@@ -30,6 +30,19 @@ module PublicShowHelper
     "on" if css
   end
 
+  #根据分类类型,选中头部样式
+  def category_head_show(mark)
+	case mark
+	when 'life'
+	  @css_head_life = true
+	when 'health'
+	  @css_head_health = true
+	when 'inspire'
+	  @css_head_inspire = true
+	end
+
+  end
+
   #自动跳转(可直接在action中调用此方法)
   def auto_redirect(arg={})
      sec = arg[:sec] || 3

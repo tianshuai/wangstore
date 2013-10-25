@@ -15,6 +15,14 @@
       <%= f.label :name, '名称' %>
   	  <%= f.text_field :name, class: 'form-control', autofocus: '' %>
     </div>
+    <div class="form-group">
+      <%= f.label :mark, '标识' %>
+	  <% if @category.new_record? %>
+  	  	<%= f.text_field :mark, class: 'form-control' %>
+	  <%else%>
+  	  	<%= f.text_field :mark, class: 'form-control', disabled: true %>
+  	  <%end%>
+    </div>
 	<div class="form-group">
       <%= f.label :kind, '类型 ' %>
 	  <%= f.select :kind, [ [  '文章', 1] ], :prompt=>"select a payment method", class: '' %> 
@@ -30,7 +38,7 @@
 	</div>
     <div class="form-group">
       <%= f.label :sort, '排序' %>
-  	  <%= f.text_field :sort, class: 'form-control' %>
+  	  <%= f.number_field :sort, class: 'form-control' %>
     </div>
 	<div class="form-group">
 	  <%= f.label :state, ' 状态:' %>

@@ -12,7 +12,9 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 			<li class="<%= css_active?(@css_head_home) %>"><%= link_to '首页', root_path %></li>
-			<li class="<%= css_active?(@css_head_post) %>"><%= link_to '文章', posts_path %></li>
+			<li class="<%= css_active?(@css_head_life) %>"><%= link_to '生活', posts_path('life') %></li>
+			<li class="<%= css_active?(@css_head_health) %>"><%= link_to '健康', posts_path('health') %></li>
+			<li class="<%= css_active?(@css_head_inspire) %>"><%= link_to '励志', posts_path('inspire') %></li>
             <li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">更多 <b class="caret"></b></a>
               <ul class="dropdown-menu">

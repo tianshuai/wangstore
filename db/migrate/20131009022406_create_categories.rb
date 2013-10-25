@@ -3,6 +3,7 @@ class CreateCategories < ActiveRecord::Migration
     create_table :categories do |t|
       t.string 	:name,		null: false
 	  t.string 	:description
+	  t.string 	:mark
 	  t.integer :user_id,	null: false
       t.integer :kind,		null: false, default: 1
       t.integer :state,		null: false, default: 1
@@ -13,6 +14,7 @@ class CreateCategories < ActiveRecord::Migration
 
       t.timestamps
     end
+	add_index :categories, :mark
     add_index :categories, :user_id
 	add_index :categories, :kind
     add_index :categories, :name

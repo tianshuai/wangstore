@@ -60,8 +60,8 @@ class Admin::PostsController < Admin::BaseController
         #保存编辑器图片
         if params[:asset_ids]
           params[:asset_ids].split(',').each do |id|
-            asset = Asset.find(id.to_i)
-            asset.update_attributes(relateable_id: @post.id, relateable_type: @post.class.to_s) if asset.present?
+            asset = Asset.find(id)
+            asset.update(relateable_id: @post.id, relateable_type: @post.class.to_s) if asset.present?
           end
         end
         format.html { redirect_to admin_posts_path, notice: '创建成功!' }
@@ -79,7 +79,7 @@ class Admin::PostsController < Admin::BaseController
     @post = Post.find(params[:id])
 
     respond_to do |format|
-      if @post.update_attributes(params.require(:post).permit!)
+      if @post.update(params.require(:post).permit!)
         #保存封面图
         if params[:asset_id]
           #获得文件/格式

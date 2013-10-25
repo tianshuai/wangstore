@@ -8,9 +8,9 @@ Wangstore::Application.routes.draw do
   get 'choose',     			to: 'home#choose'
 
   #文章
-  resources :posts, only: [:index, :show] do
 
-  end
+  get 'posts/:mark',		to: 'posts#list',			as: 'posts'
+  get 'post/:id',			to: 'posts#show', 			as: 'post'
 
 
   #上传路径

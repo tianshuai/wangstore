@@ -1,5 +1,10 @@
 <ol class="breadcrumb">
   <li><%= link_to '首页', root_path %></li>
-  <li><%= link_to '文章列表', posts_path %></li>
-  <li class="active"><%= post.title %></li>
+  <% if title.present? %>
+    <li><%= link_to cate.name, posts_path(cate.mark) %></li>
+    <li class="active"><%= title %></li>
+  <%else%>
+    <li class="active"><%= cate.name %></li>
+  <%end%>
+
 </ol>

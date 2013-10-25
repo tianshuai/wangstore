@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20131014080729) do
   create_table "categories", force: true do |t|
     t.string   "name",                    null: false
     t.string   "description"
+    t.string   "mark"
     t.integer  "user_id",                 null: false
     t.integer  "kind",        default: 1, null: false
     t.integer  "state",       default: 1, null: false
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(version: 20131014080729) do
   end
 
   add_index "categories", ["kind"], name: "index_categories_on_kind", using: :btree
+  add_index "categories", ["mark"], name: "index_categories_on_mark", using: :btree
   add_index "categories", ["name"], name: "index_categories_on_name", using: :btree
   add_index "categories", ["pid"], name: "index_categories_on_pid", using: :btree
   add_index "categories", ["sort"], name: "index_categories_on_sort", using: :btree

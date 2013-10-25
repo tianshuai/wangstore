@@ -25,8 +25,8 @@ class Category < ActiveRecord::Base
 
   ##过滤
   #排序
-  scope :recent,      	-> { order("id DESC") }
-  scope :order_b,		-> { order("sort DESC") }
+  scope :recent,		-> { order(created_at: :desc) }
+  scope :order_b,		-> { order(sort: :desc) }
   #父分类
   scope :parent_level,	-> { where(pid: 0) }
   #通过父类ID查看子类
@@ -41,6 +41,11 @@ class Category < ActiveRecord::Base
   scope :undefault,		-> { where(kind: KIND[:img]) }
 
   ##方法
+  #通过类型查看分类，用于下拉选项
+  def self.kind_options(kind=1)
+	self.where(kind: kind).available.collect{ |x| [x.name, x.id] }
+  end
+
   #父类级
   def self.parent_options(kind=1)
 	case kind

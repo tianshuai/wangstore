@@ -21,6 +21,6 @@ class Block < ActiveRecord::Base
 
   ##过滤
   #排序
-  scope :recent,      	-> { order("id DESC") }
+  scope :recent,		-> { order(created_at: :desc) }
 	 
 end

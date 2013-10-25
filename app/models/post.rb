@@ -47,7 +47,7 @@ class Post < ActiveRecord::Base
   #文章
   scope :article,			-> { where(kind: KIND[:article]) }
   #最新的
-  scope :recent,			-> { order("created_at DESC") }
+  scope :recent,			-> { order(created_at: :desc) }
   #按自定义排序
   scope :order_b,           -> { order("sort DESC") }
   #已发布的

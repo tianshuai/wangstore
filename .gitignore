@@ -17,3 +17,5 @@
 source
 *.swp
 /public/upload/*
+tags
+*.rdb
