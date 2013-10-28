@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20131014080729) do
     t.string   "title",                   null: false
     t.text     "description"
     t.text     "content"
+    t.string   "tags"
     t.integer  "user_id",                 null: false
     t.integer  "kind",        default: 1, null: false
     t.integer  "category_id",             null: false

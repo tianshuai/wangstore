@@ -4,6 +4,7 @@ class CreatePosts < ActiveRecord::Migration
       t.string :title,			null: false
       t.text :description
 	  t.text :content
+	  t.string :tags
 	  t.integer :user_id,		null: false
 	  t.integer :kind,			null: false, default: 1
 	  t.integer :category_id,	null: false

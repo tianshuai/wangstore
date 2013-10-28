@@ -19,7 +19,6 @@ class PostsController < ApplicationController
 	else
 	  render_404
 	end
-	
   end
 
   def show

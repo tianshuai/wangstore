@@ -39,6 +39,9 @@ module PublicShowHelper
 	  @css_head_health = true
 	when 'inspire'
 	  @css_head_inspire = true
+
+	when 'science'
+	  @css_head_science = true
 	end
 
   end
