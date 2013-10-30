@@ -1,8 +1,8 @@
 ##路径
 domain: 127.0.0.1
-domain_base: http://127.0.0.1:3000
+domain_base: http://wangstore.com
 
-domain_image: http://127.0.0.1:3000/asset
+domain_image: http://wangstore.com/asset
 
 
 #设置图片支持的格式
