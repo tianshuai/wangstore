@@ -32,7 +32,7 @@ Wangstore::Application.configure do
   config.assets.compile = false
 
   # Generate digests for assets URLs.
-  #生产环境中，上传图片显示（默认值为true） 
+  #使资源的名字使用 MD5 指纹
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
@@ -43,6 +43,7 @@ Wangstore::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  #强制所有的请求使用ActionDispath::SSL中间件走 HTTPS 协议.
   # config.force_ssl = true
 
   # Set to :debug to see everything in the log.
@@ -62,10 +63,11 @@ Wangstore::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  # config.assets.precompile += %w( search.js )
   # 排除 Compass 的 partials （文件名是下划线开头的，比如 _shared.css.sass） 
-  #config.assets.precompile += [ Proc.new {|path| File.basename(path) =~ /^[^_].*\.\w+$/} ]
-  config.assets.precompile += %w( compress/custom.css.scss )
+  #config.assets.precompile += %w( extra.js )
+  #config.assets.precompile += %w( compress/custom.css.scss )
+  #config.assets.paths << Rails.root.join("vendor", "assets")
+  config.assets.precompile += [ Proc.new {|path| File.basename(path) =~ /^[^_].*\.\w+$/} ]
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

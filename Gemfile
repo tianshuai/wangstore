@@ -71,3 +71,5 @@ gem 'bcrypt-ruby', '3.0.1'
 
 #图片读取存储
 gem 'mini_magick'
+
+gem "non-stupid-digest-assets"
