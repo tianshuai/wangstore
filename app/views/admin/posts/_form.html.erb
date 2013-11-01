@@ -29,6 +29,15 @@
 
 	<span class="blank10 clearfix"></span>
     <div class="form-group">
+      <%= f.label :tags, '标签(用逗号分开)' %>
+  	  <%= f.text_field :tags, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+  	  <%= f.label :description, '简述(用于meta-description,不大于140个字)' %>
+  	  <%= f.text_area :description, class: 'form-control' %>
+	</div>
+    <div class="form-group">
   	  <%= f.label :content, '描述' %>
   	  <%= f.text_area :content, id: 'kind_editor', class: 'form-control' %>
 	</div>

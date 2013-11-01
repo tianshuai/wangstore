@@ -14,7 +14,7 @@ class PostsController < ApplicationController
 	if @category.present?
 	  #根据分类,指定头部样式
 	  category_head_show(mark)
-	  @posts = @category.posts
+	  @posts = @category.posts.published.normal
 	  render 'list'
 	else
 	  render_404
@@ -38,6 +38,10 @@ class PostsController < ApplicationController
 	    flash[:notice] = "所属分类不存在!"
 	    render_404
 	  else
+    	#page meta
+    	@meta_title = @post.title
+    	@meta_desc = @post.description if @post.description.present?
+    	@meta_key = @post.tags.split(/[,|，]/).join(' ') if @post.tags.present?
 		#浏览量+1
 		Post.increment_counter(:view_count, @post)
 	    #根据分类,指定头部样式

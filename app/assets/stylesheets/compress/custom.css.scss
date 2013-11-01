@@ -1,8 +1,7 @@
 @import "bootstrap";
 
 /*-----------------------------全局样式-------------------------------------*/
-dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0}
-h1,h2,h3,h4,h5,h6{font:normal 14px/18px Microsoft YaHei}
+
 ul{list-style:none}
 
 h1, h2, h3, h4, h5, h6 {
@@ -60,6 +59,9 @@ $grayMediumLight: #eaeaea;
   box-sizing: border-box;
 }
 
+.article-body{font-size:14px;}
+.article-body p{color:#333;}
+.article-body img {}
 
 /* miscellaneous */
 
@@ -339,3 +341,7 @@ input.btn-medium {border: 0 none;cursor: pointer;}
 .btn_submit_exc[disabled="disabled"] {cursor:"default";color:#ddd;background-color:#666;}
 .btn_submit_exc[disabled="disabled"]:hover {color:white;background-color:#666;}
 .medium-btn{padding:5px 10px;}
+
+
+/*------------底部------------*/
+.footer{background:#fff;width:1280px;margin:0 auto}
