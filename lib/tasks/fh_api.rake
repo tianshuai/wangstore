@@ -5,7 +5,7 @@ namespace :fh do
   task :fh, [:key, :type] => :environment do |t, args|
 	#给参数默认值
 	args.with_defaults(key: '', type: 1)
-	code = "tui30y100"
+	code = ""
 	key = args[:key]
 	dir = '/opt/fenghui/'
 	if key.present?

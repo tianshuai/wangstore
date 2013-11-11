@@ -18,7 +18,7 @@ class HomeController < ApplicationController
 
   def choose
     require 'open-uri'
-	code = "tui30y100"
+	code = ""
 	key = params[:key] || ''
 	dir = '/opt/fenghui/'
 	#通过漫画模糊搜索查询漫画ＩＤ
